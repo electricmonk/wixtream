@@ -14,15 +14,14 @@ public class BaseController {
     final String WIX_SECRET = "9828f4a5-d476-4a50-a482-410c026b1969";
     final static String WIX_APPLICATION_ID = "12aecc27-b747-63bb-e1f9-62b3d2ef542f";
 
-    @Resource
-    AppInstanceDao appInstanceDao;
+    protected ObjectMapper objectMapper = new ObjectMapper();
 
-    AuthenticationResolver authenticationResolver = new AuthenticationResolver(new ObjectMapper());
+    @Resource
+    protected AppInstanceDao appInstanceDao;
+
+    protected AuthenticationResolver authenticationResolver = new AuthenticationResolver(new ObjectMapper());
 
     protected UUID getInstanceId(String instance) {
-        if ("hail-cthulu".equals(instance)) {
-            return UUID.fromString("66666666-6666-6666-6666-666666666666");
-        }
 
         return getInstance(instance).getInstanceId();
     }

