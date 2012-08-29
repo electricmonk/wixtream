@@ -3,6 +3,7 @@ package com.wixpress.streaming.wix;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 
 /**
  * @author shaiyallin
@@ -17,4 +18,16 @@ public class BaseController {
     AppInstanceDao appInstanceDao;
 
     AuthenticationResolver authenticationResolver = new AuthenticationResolver(new ObjectMapper());
+
+    protected UUID getInstanceId(String instance) {
+        if ("hail-cthulu".equals(instance)) {
+            return UUID.fromString("66666666-6666-6666-6666-666666666666");
+        }
+
+        return getInstance(instance).getInstanceId();
+    }
+
+    protected WixSignedInstance getInstance(String instance) {
+        return authenticationResolver.unsignInstance(WIX_SECRET, instance);
+    }
 }
