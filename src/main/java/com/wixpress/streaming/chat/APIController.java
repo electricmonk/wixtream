@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author shaiyallin
@@ -35,5 +36,11 @@ public class APIController {
     @RequestMapping(value = "/{clientId}", method = RequestMethod.GET)
     public ChatSession getSession(@PathVariable String clientId) {
         return chatCoordinator.getSession(clientId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/sessions/{clientId}", method = RequestMethod.GET)
+    public List<ChatSession> waitingSessions() {
+        return chatCoordinator.getSessions();
     }
 }
