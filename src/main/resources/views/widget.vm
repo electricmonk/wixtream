@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>$appInstance.getTitle() Widget</title>
     <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-responsive.min.css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -10,11 +9,6 @@
 
 <body>
 <div class="container-fluid">
-    <div class="row-fluid">
-        <div class="hero-unit" style="background-color:$appInstance.getColor();">
-
-            <h3>Widget</h3>
-        </div>
     </div>
         <h1>Hello World</h1>
     </div>
