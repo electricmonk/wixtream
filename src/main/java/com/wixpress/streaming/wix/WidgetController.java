@@ -1,5 +1,6 @@
 package com.wixpress.streaming.wix;
 
+import com.google.appengine.repackaged.com.google.common.base.Strings;
 import org.codehaus.jackson.JsonGenerationException;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class WidgetController extends BaseController
 
         appInstance.setWidth(width);
 
-        WidgetModel widgetModel = new WidgetModel(instance, appInstance, wixSignedInstance.getPermissions().contains("owner"));
+        WidgetModel widgetModel = new WidgetModel(instance, appInstance, Strings.nullToEmpty(instance).contains("owner"));
         model.addAttribute("model", widgetModel);
         model.addAttribute("widgetModelJson", objectMapper.writeValueAsString(widgetModel));
 

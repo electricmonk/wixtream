@@ -14,8 +14,8 @@
 
 <body>
 #if ($model.publisher)
-    #parse("publisher.vm")
+    #parse("views/publisher.vm")
 #else
-    #parse("subscriber.vm")
+    #parse("views/subscriber.vm")
 #end
 </body>
