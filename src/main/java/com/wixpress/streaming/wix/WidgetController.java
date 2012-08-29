@@ -18,7 +18,7 @@ import java.util.UUID;
 @RequestMapping("/widget")
 public class WidgetController extends BaseController
 {
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String widget(Model model,
                          @RequestParam String instance,
                          @RequestParam(required = false) String target,
