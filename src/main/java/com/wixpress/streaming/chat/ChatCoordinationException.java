@@ -1,5 +1,8 @@
 package com.wixpress.streaming.chat;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 /**
  * @author shaiyallin
  * @since 8/29/12
