@@ -21,25 +21,25 @@ public class APIController {
     ChatCoordinator chatCoordinator;
 
     @ResponseBody
-    @RequestMapping(value = "/request/{clientId}")
+    @RequestMapping(value = "/subscribe/{clientId}")
     public void requestChat(@PathVariable String clientId) {
         chatCoordinator.createSession(clientId);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/fulfill/{clientId}")
-    public ChatSession fulfillChat(@PathVariable String clientId) throws ChatCoordinationException {
-        return chatCoordinator.fulfillSession(clientId);
-    }
-
-    @ResponseBody
-    @RequestMapping(value = "/{clientId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/subscriber-status/{clientId}", method = RequestMethod.GET)
     public ChatSession getSession(@PathVariable String clientId) {
         return chatCoordinator.getSession(clientId);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/sessions/{clientId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/accept-subscriber/{clientId}")
+    public ChatSession fulfillChat(@PathVariable String clientId) throws ChatCoordinationException {
+        return chatCoordinator.fulfillSession(clientId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/subscriber-list", method = RequestMethod.GET)
     public List<ChatSession> waitingSessions() {
         return chatCoordinator.getSessions();
     }
