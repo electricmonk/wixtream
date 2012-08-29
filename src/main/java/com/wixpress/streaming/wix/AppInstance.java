@@ -91,4 +91,8 @@ public class AppInstance {
     public Settings getSettings() {
         return settings;
     }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
 }

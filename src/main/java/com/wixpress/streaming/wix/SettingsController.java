@@ -3,9 +3,7 @@ package com.wixpress.streaming.wix;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -17,18 +15,30 @@ import java.util.UUID;
 @RequestMapping("/settings")
 public class SettingsController extends BaseController {
 
-
-    @RequestMapping(value = "/settings", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String settings(Model model,
                            @RequestParam String instance,
                            @RequestParam(required = false) Integer width)
     {
-        AppInstance appAppInstance = getOrCreateApplication(instance);
+        AppInstance appInstance = getOrCreateApplication(instance);
 
-        appAppInstance.setWidth(width);
-        model.addAttribute("appInstance", appAppInstance);
+        appInstance.setWidth(width);
+        model.addAttribute("appInstance", appInstance);
 
         return "settings";
+    }
+
+    @RequestMapping("/get")
+    @ResponseBody
+    public Settings getSettings(@RequestParam String instance) {
+        return getOrCreateApplication(instance).getSettings();
+    }
+
+    @RequestMapping("/save")
+    public void getSettings(@RequestParam String instance, @RequestBody Settings settings) {
+        AppInstance appInstance = getOrCreateApplication(instance);
+        appInstance.setSettings(settings);
+        appInstanceDao.update(appInstance);
     }
 
 }
