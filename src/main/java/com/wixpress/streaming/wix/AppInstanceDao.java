@@ -9,17 +9,17 @@ import java.util.UUID;
  * Since: 8/27/12
  */
 
-public class InstanceDao  {
+public class AppInstanceDao {
 
     static final String INSTANCE = "Instance";
     static final String BAGGAGE = "Baggage";
 
-    private SampleAppDigester digester = new SampleAppDigester();
+    private AppInstanceDigester digesterApp = new AppInstanceDigester();
     private DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
-    public Instance addAppInstance(Instance instance) {
-        Entity entity = new Entity(INSTANCE, instance.getInstanceId().toString());
-        entity.setProperty(BAGGAGE, digester.serializeSampleAppInstance(instance));
+    public AppInstance addAppInstance(AppInstance appInstance) {
+        Entity entity = new Entity(INSTANCE, appInstance.getInstanceId().toString());
+        entity.setProperty(BAGGAGE, digesterApp.serializeSampleAppInstance(appInstance));
 
         Transaction transaction = dataStore.beginTransaction();
         try {
@@ -30,21 +30,21 @@ public class InstanceDao  {
                 transaction.rollback();
             }
         }
-        return instance;
+        return appInstance;
     }
 
-    public Instance addAppInstance(WixSignedInstance wixSignedInstance) {
-        return addAppInstance(new Instance(wixSignedInstance));
+    public AppInstance addAppInstance(WixSignedInstance wixSignedInstance) {
+        return addAppInstance(new AppInstance(wixSignedInstance));
     }
 
-    public Instance getAppInstance(UUID instanceId) {
+    public AppInstance getAppInstance(UUID instanceId) {
         if (instanceId == null)
             return null;
         else {
             final Key key = KeyFactory.createKey(INSTANCE, instanceId.toString());
             try {
                 final String baggage = dataStore.get(key).getProperty(BAGGAGE).toString();
-                return digester.deserializeSampleAppInstance(baggage);
+                return digesterApp.deserializeSampleAppInstance(baggage);
             } catch (EntityNotFoundException e) {
                 e.printStackTrace();
                 return null;
@@ -52,11 +52,11 @@ public class InstanceDao  {
         }
     }
 
-    public Instance getAppInstance(WixSignedInstance wixSignedInstance) {
+    public AppInstance getAppInstance(WixSignedInstance wixSignedInstance) {
         return getAppInstance(wixSignedInstance.getInstanceId());
     }
 
-    public void update(Instance appInstance) {
-        addAppInstance(appInstance);
+    public void update(AppInstance appAppInstance) {
+        addAppInstance(appAppInstance);
     }
 }

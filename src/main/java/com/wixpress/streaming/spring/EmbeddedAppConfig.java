@@ -1,6 +1,8 @@
 package com.wixpress.streaming.spring;
 
-import com.wixpress.streaming.wix.InstanceDao;
+import com.wixpress.streaming.chat.ChatCoordinator;
+import com.wixpress.streaming.opentok.OpenTokFacade;
+import com.wixpress.streaming.wix.AppInstanceDao;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +23,17 @@ public class EmbeddedAppConfig
     }
 
     @Bean
-    public InstanceDao instanceDao() {
-        return new InstanceDao();
+    public AppInstanceDao instanceDao() {
+        return new AppInstanceDao();
+    }
+
+    @Bean
+    public ChatCoordinator chatCoordinator() {
+        return new ChatCoordinator(openTokFacade());
+    }
+
+    @Bean
+    public OpenTokFacade openTokFacade() {
+        return new OpenTokFacade();
     }
 }

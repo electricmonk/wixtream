@@ -24,15 +24,15 @@ public class SettingsController extends BaseController {
                            @RequestParam(required = false) Integer width)
     {
         WixSignedInstance wixSignedInstance = authenticationResolver.unsignInstance(WIX_SECRET, instance);
-        Instance appInstance = instanceDao.getAppInstance(wixSignedInstance);
+        AppInstance appAppInstance = appInstanceDao.getAppInstance(wixSignedInstance);
 
-        if(appInstance == null) //new Instance created
+        if(appAppInstance == null) //new Instance created
         {
-            appInstance = instanceDao.addAppInstance(wixSignedInstance);
+            appAppInstance = appInstanceDao.addAppInstance(wixSignedInstance);
         }
 
-        appInstance.setWidth(width);
-        model.addAttribute("appInstance", appInstance);
+        appAppInstance.setWidth(width);
+        model.addAttribute("appInstance", appAppInstance);
 
         return "settings";
     }
@@ -47,15 +47,15 @@ public class SettingsController extends BaseController {
             uuid = UUID.fromString(instanceId);
         } catch (Exception ignored) {}
 
-        Instance appInstance = instanceDao.getAppInstance(uuid);
+        AppInstance appAppInstance = appInstanceDao.getAppInstance(uuid);
 
-        if(appInstance == null) //new Instance created
+        if(appAppInstance == null) //new Instance created
         {
-            appInstance = instanceDao.addAppInstance(new WixSignedInstance(uuid, new DateTime(), null, ""));
+            appAppInstance = appInstanceDao.addAppInstance(new WixSignedInstance(uuid, new DateTime(), null, ""));
         }
 
-        appInstance.setWidth(width);
-        model.addAttribute("appInstance", appInstance);
+        appAppInstance.setWidth(width);
+        model.addAttribute("appInstance", appAppInstance);
 
         return "settings";
     }

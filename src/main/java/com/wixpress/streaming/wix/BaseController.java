@@ -1,7 +1,5 @@
 package com.wixpress.streaming.wix;
 
-import com.wixpress.streaming.wix.AuthenticationResolver;
-import com.wixpress.streaming.wix.InstanceDao;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import javax.annotation.Resource;
@@ -12,11 +10,11 @@ import javax.annotation.Resource;
  */
 public class BaseController {
 
-    final String WIX_SECRET = "39202616-8cfc-4a28-a8d7-4790d13de94e";
-    final static String WIX_APPLICATION_ID = "129a90ff-094d-f193-49a0-2da5d7d2209b";
+    final String WIX_SECRET = "9828f4a5-d476-4a50-a482-410c026b1969";
+    final static String WIX_APPLICATION_ID = "12aecc27-b747-63bb-e1f9-62b3d2ef542f";
 
     @Resource
-    InstanceDao instanceDao;
+    AppInstanceDao appInstanceDao;
 
     AuthenticationResolver authenticationResolver = new AuthenticationResolver(new ObjectMapper());
 }

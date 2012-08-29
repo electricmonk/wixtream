@@ -9,7 +9,7 @@ import java.util.UUID;
  * Since: 7/1/12
  */
 
-public class Instance {
+public class AppInstance {
 
     private UUID instanceId;
     private DateTime signDate;
@@ -20,9 +20,9 @@ public class Instance {
     private int width;
     private int height;
 
-    public Instance(){}
+    public AppInstance(){}
 
-    public Instance(WixSignedInstance wixSignedInstance) {
+    public AppInstance(WixSignedInstance wixSignedInstance) {
         this.instanceId = wixSignedInstance.getInstanceId();
         this.signDate = wixSignedInstance.getSignDate();
         this.lastAccessedDate = wixSignedInstance.getSignDate();

@@ -3,6 +3,7 @@ package com.wixpress.streaming.chat;
 import com.wixpress.streaming.opentok.OpenTokFacade;
 import com.wixpress.streaming.opentok.SessionCreationFailedException;
 import org.joda.time.DateTime;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
