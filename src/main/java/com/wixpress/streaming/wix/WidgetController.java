@@ -43,8 +43,8 @@ public class WidgetController extends BaseController
 
     @RequestMapping(value = "/widgetstandalone", method = RequestMethod.GET)
     public String widgetStandAlone(Model model,
-                                   @RequestParam String instanceId,
-                                   @RequestParam Integer width)
+                                   String instanceId,
+                                   Integer width)
     {
         UUID uuid = null;
         try {
