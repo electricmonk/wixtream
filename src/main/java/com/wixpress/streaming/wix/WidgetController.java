@@ -25,15 +25,15 @@ public class WidgetController extends BaseController
                          @RequestParam Integer width)
     {
         WixSignedInstance wixSignedInstance = authenticationResolver.unsignInstance(WIX_SECRET, instance);
-        AppInstance appAppInstance = appInstanceDao.getAppInstance(wixSignedInstance);
+        AppInstance appInstance = appInstanceDao.getAppInstance(wixSignedInstance);
 
-        if(appAppInstance == null) //new Instance created
+        if(appInstance == null) //new Instance created
         {
-            appAppInstance = appInstanceDao.addAppInstance(wixSignedInstance);
+            appInstance = appInstanceDao.addAppInstance(wixSignedInstance);
         }
 
-        appAppInstance.setWidth(width);
-        model.addAttribute("appInstance", appAppInstance);
+        appInstance.setWidth(width);
+        model.addAttribute("appInstance", appInstance);
 
         return "widget";
 
