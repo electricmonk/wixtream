@@ -18,8 +18,8 @@ public class OpenTokFacade {
     public OpenTokSession createSession(String clientId) throws SessionCreationFailedException {
         try {
             com.opentok.api.OpenTokSession tokSession = sdk.create_session();
-            String publisherToken = sdk.generate_token(tokSession.getSessionId(), "PUBLISHER");
-            String subscriberToken = sdk.generate_token(tokSession.getSessionId(), "SUBSCRIBER");
+            String publisherToken = sdk.generate_token(tokSession.getSessionId(), "publisher");
+            String subscriberToken = sdk.generate_token(tokSession.getSessionId(), "publisher");
             return new OpenTokSession(clientId, tokSession.getSessionId(), new DateTime(), apiKey, publisherToken, subscriberToken);
         } catch (OpenTokException e) {
             throw new SessionCreationFailedException("Failed creating a session for client id" + clientId);
