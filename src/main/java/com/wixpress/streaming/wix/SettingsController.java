@@ -23,13 +23,7 @@ public class SettingsController extends BaseController {
                            @RequestParam String instance,
                            @RequestParam(required = false) Integer width)
     {
-        WixSignedInstance wixSignedInstance = authenticationResolver.unsignInstance(WIX_SECRET, instance);
-        AppInstance appAppInstance = appInstanceDao.getAppInstance(wixSignedInstance);
-
-        if(appAppInstance == null) //new Instance created
-        {
-            appAppInstance = appInstanceDao.addAppInstance(wixSignedInstance);
-        }
+        AppInstance appAppInstance = getOrCreateApplication(instance);
 
         appAppInstance.setWidth(width);
         model.addAttribute("appInstance", appAppInstance);
@@ -37,26 +31,4 @@ public class SettingsController extends BaseController {
         return "settings";
     }
 
-    @RequestMapping(value = "/settingsstandalone", method = RequestMethod.GET)
-    public String settingsStandAlone(Model model,
-                                     String instanceId,
-                                     Integer width)
-    {
-        UUID uuid = null;
-        try {
-            uuid = UUID.fromString(instanceId);
-        } catch (Exception ignored) {}
-
-        AppInstance appAppInstance = appInstanceDao.getAppInstance(uuid);
-
-        if(appAppInstance == null) //new Instance created
-        {
-            appAppInstance = appInstanceDao.addAppInstance(new WixSignedInstance(uuid, new DateTime(), null, ""));
-        }
-
-        appAppInstance.setWidth(width);
-        model.addAttribute("appInstance", appAppInstance);
-
-        return "settings";
-    }
 }

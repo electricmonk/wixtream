@@ -29,4 +29,17 @@ public class BaseController {
     protected WixSignedInstance getInstance(String instance) {
         return authenticationResolver.unsignInstance(WIX_SECRET, instance);
     }
+
+    protected AppInstance getOrCreateApplication(String instance) {
+        WixSignedInstance wixSignedInstance = authenticationResolver.unsignInstance(WIX_SECRET, instance);
+        AppInstance appAppInstance = appInstanceDao.getAppInstance(wixSignedInstance);
+
+        if(appAppInstance == null) //new Instance created
+        {
+            appAppInstance = appInstanceDao.addAppInstance(wixSignedInstance);
+        }
+        return appAppInstance;
+    }
+
+
 }
