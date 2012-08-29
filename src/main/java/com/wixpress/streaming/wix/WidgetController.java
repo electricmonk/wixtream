@@ -43,8 +43,8 @@ public class WidgetController extends BaseController
 
     @RequestMapping(value = "/widgetstandalone", method = RequestMethod.GET)
     public String widgetStandAlone(Model model,
-                                   String instanceId,
-                                   Integer width)
+                                   @RequestParam String instanceId,
+                                   @RequestParam Integer width)
     {
         UUID uuid = null;
         try {
@@ -55,7 +55,7 @@ public class WidgetController extends BaseController
 
         if(appAppInstance == null) //new Instance created
         {
-            appAppInstance = appInstanceDao.addAppInstance(new WixSignedInstance(uuid, new DateTime(), null, ""));
+            appAppInstance = appInstanceDao.addAppInstance(new WixSignedInstance(UUID.fromString(instanceId), new DateTime(), uuid, ""));
         }
 
         appAppInstance.setWidth(width);
