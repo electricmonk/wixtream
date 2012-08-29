@@ -6,7 +6,9 @@ import com.wixpress.streaming.wix.AppInstanceDao;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * Created by : doron
@@ -15,6 +17,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({EmbeddedAppVelocityBeansConfig.class})
+@EnableWebMvc
 public class EmbeddedAppConfig
 {
     @Bean

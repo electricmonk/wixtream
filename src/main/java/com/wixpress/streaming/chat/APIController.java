@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
@@ -18,16 +19,19 @@ public class APIController {
     @Resource
     ChatCoordinator chatCoordinator;
 
-    @RequestMapping(value = "/request/{clientId}", method = RequestMethod.POST)
+    @ResponseBody
+    @RequestMapping(value = "/request/{clientId}")
     public void requestChat(@PathVariable String clientId) {
         chatCoordinator.createSession(clientId);
     }
 
-    @RequestMapping(value = "/fulfill/{clientId}", method = RequestMethod.POST)
+    @ResponseBody
+    @RequestMapping(value = "/fulfill/{clientId}")
     public ChatSession fulfillChat(@PathVariable String clientId) throws ChatCoordinationException {
         return chatCoordinator.fulfillSession(clientId);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/{clientId}", method = RequestMethod.GET)
     public ChatSession getSession(@PathVariable String clientId) {
         return chatCoordinator.getSession(clientId);
