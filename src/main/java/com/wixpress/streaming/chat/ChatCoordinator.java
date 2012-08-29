@@ -1,14 +1,13 @@
 package com.wixpress.streaming.chat;
 
-import com.google.appengine.repackaged.com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableList;
 import com.wixpress.streaming.opentok.OpenTokFacade;
 import com.wixpress.streaming.opentok.SessionCreationFailedException;
 import org.joda.time.DateTime;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import static com.google.common.collect.Maps.newConcurrentMap;
 
@@ -18,20 +17,26 @@ import static com.google.common.collect.Maps.newConcurrentMap;
  */
 public class ChatCoordinator {
 
-    private final Map<String, ChatSession> sessions = newConcurrentMap();
+    private final Map<UUID, TenantSessionHolder> tenants = newConcurrentMap();
     private final OpenTokFacade openTokFacade;
 
     public ChatCoordinator(OpenTokFacade openTokFacade) {
         this.openTokFacade = openTokFacade;
     }
 
-    public void createSession(String clientId) {
-        sessions.put(clientId, new ChatSession(clientId, new DateTime()));
+    public void createSession(UUID instanceId, String clientId) throws ChatCoordinationException {
+        TenantSessionHolder tenant = getTenant(instanceId);
+        if (tenant.getSessions().containsKey(clientId)) {
+            throw new ChatCoordinationException("Client with id " + clientId + " already has a pending session");
+        } else {
+            tenant.getSessions().put(clientId, new ChatSession(clientId, new DateTime()));
+        }
     }
 
-    public ChatSession fulfillSession(String clientId) throws ChatCoordinationException {
+    public ChatSession fulfillSession(UUID instanceId, String clientId) throws ChatCoordinationException {
 
-        ChatSession session = sessions.get(clientId);
+        TenantSessionHolder tenant = getTenant(instanceId);
+        ChatSession session = tenant.getSessions().get(clientId);
 
         if (session == null) {
             throw new ChatCoordinationException("Client with id " + clientId + " has no pending session");
@@ -49,11 +54,18 @@ public class ChatCoordinator {
         }
     }
 
-    public ChatSession getSession(String clientId) {
-        return sessions.get(clientId);
+    public ChatSession getSession(UUID instanceId, String clientId) {
+        return getTenant(instanceId).getSessions().get(clientId);
     }
 
-    public List<ChatSession> getSessions() {
-        return ImmutableList.copyOf(sessions.values());
+    public List<ChatSession> getSessions(UUID instanceId) {
+        return ImmutableList.copyOf(getTenant(instanceId).getSessions().values());
+    }
+
+    TenantSessionHolder getTenant(UUID instanceId) {
+        if (!tenants.containsKey(instanceId)) {
+            tenants.put(instanceId, new TenantSessionHolder());
+        }
+        return tenants.get(instanceId);
     }
 }
