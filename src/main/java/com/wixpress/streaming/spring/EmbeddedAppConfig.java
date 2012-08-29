@@ -1,6 +1,6 @@
 package com.wixpress.streaming.spring;
 
-import com.wixpress.streaming.domain.InstanceDao;
+import com.wixpress.streaming.wix.InstanceDao;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

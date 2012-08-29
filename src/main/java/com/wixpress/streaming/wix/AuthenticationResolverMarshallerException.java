@@ -1,4 +1,4 @@
-package com.wixpress.streaming.domain;
+package com.wixpress.streaming.wix;
 
 /**
  * Created by : doron

@@ -1,7 +1,5 @@
-package com.wixpress.streaming.controller;
+package com.wixpress.streaming.wix;
 
-import com.wixpress.streaming.domain.Instance;
-import com.wixpress.streaming.domain.WixSignedInstance;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +23,7 @@ public class SettingsController extends BaseController {
                            @RequestParam String instance,
                            @RequestParam(required = false) Integer width)
     {
-        WixSignedInstance wixSignedInstance = authenticationResolver.unsignInstance(SECRET, instance);
+        WixSignedInstance wixSignedInstance = authenticationResolver.unsignInstance(WIX_SECRET, instance);
         Instance appInstance = instanceDao.getAppInstance(wixSignedInstance);
 
         if(appInstance == null) //new Instance created

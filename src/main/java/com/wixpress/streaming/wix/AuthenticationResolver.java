@@ -1,4 +1,4 @@
-package com.wixpress.streaming.domain;
+package com.wixpress.streaming.wix;
 
 import org.apache.commons.codec.binary.Base64;
 import org.codehaus.jackson.map.ObjectMapper;
