@@ -1,10 +1,13 @@
 package com.wixpress.streaming.chat;
 
+import com.google.appengine.repackaged.com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableList;
 import com.wixpress.streaming.opentok.OpenTokFacade;
 import com.wixpress.streaming.opentok.SessionCreationFailedException;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 import static com.google.common.collect.Maps.newConcurrentMap;
@@ -48,5 +51,9 @@ public class ChatCoordinator {
 
     public ChatSession getSession(String clientId) {
         return sessions.get(clientId);
+    }
+
+    public List<ChatSession> getSessions() {
+        return ImmutableList.copyOf(sessions.values());
     }
 }
