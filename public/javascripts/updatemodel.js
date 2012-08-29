@@ -1,3 +1,0 @@
-function updateModel(model, refreshRate) {
-
-}
