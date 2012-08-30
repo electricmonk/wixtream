@@ -26,16 +26,9 @@ var viewModel;
         });
 
         self.instanceId = window.widgetModel.instanceToken;
-        self.activeSession = ko.computed({
-            read: function(){return activeSession},
-            write: function(data) {
-                if (data != activeSession) {
-                    var previousActiveSession = activeSession;
-                    activeSession = data;
-                    self.activeSessionChanged(activeSession, previousActiveSession);
-                }
-            }
-        });
+        self.activeSession = ko.observable(null);
+
+        self.videoController = ko.observable(null);
 
         self.activeSessionChanged = function (activeSession, previousActiveSession) {
 
@@ -72,6 +65,7 @@ var viewModel;
                         , data
                         , function (session) {
                             self.activeSession(session);
+                            self.videoController(setupTokBox(session.openTokSession));
                         }
                 );
             } else {
@@ -86,6 +80,7 @@ var viewModel;
                            );
                 self.activeSession(null);
             }
+            self.videoController(null);
         }
     };
 
