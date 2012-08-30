@@ -32,7 +32,12 @@ var viewModel;
                         } else {
                             self.session(ko.mapping.fromJS(sessionStatus));
                         }
-                        self.videoController(sessionStatus && sessionStatus.openTokSession);
+
+                        var tmp = setupTokBox(sessionStatus.openTokSession, false, self.videoController());
+                        if (tmp != self.videoController()) {
+                            self.videoController(tmp);
+                        }
+
                         setTimeout(self.getStatus, 1000);
                     }
             );

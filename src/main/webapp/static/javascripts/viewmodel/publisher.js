@@ -65,7 +65,7 @@ var viewModel;
                         , data
                         , function (session) {
                             self.activeSession(session);
-                            self.videoController(setupTokBox(session.openTokSession));
+                            self.videoController(setupTokBox(session.openTokSession, true, self.videoController()));
                         }
                 );
             } else {

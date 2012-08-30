@@ -1,26 +1,21 @@
-
-function show(id) {
-    document.getElementById(id).style.display = 'block';
-}
-
-function hide(id) {
-    document.getElementById(id).style.display = 'none';
-}
-
-function setupTokBox(openTokSession) {
+function setupTokBox(openTokSession, isPublisher, existingController) {
     if (!openTokSession) {
         return null;
     }
 
+    if (existingController && existingController.openTokSession.sessionId == openTokSession.sessionId) {
+        return existingController;
+    }
+
     var apiKey = openTokSession.apiKey;
     var sessionId = openTokSession.sessionId;
-    var token = openTokSession.publisherToken;
+    var token = isPublisher ? openTokSession.publisherToken : openTokSession.subscriberToken;
 
     var session;
     var publisher;
     var subscribers = {};
-    var VIDEO_WIDTH = 640;
-    var VIDEO_HEIGHT = 480;
+    var VIDEO_WIDTH = 330;
+    var VIDEO_HEIGHT = 290;
 
     TB.addEventListener("exception", exceptionHandler);
 
@@ -42,6 +37,8 @@ function setupTokBox(openTokSession) {
         session.addEventListener('streamDestroyed', streamDestroyedHandler);
     }
 
+    session.connect(apiKey, token);
+
     //--------------------------------------
     //  LINK CLICK HANDLERS
     //--------------------------------------
@@ -50,14 +47,25 @@ function setupTokBox(openTokSession) {
     //  OPENTOK EVENT HANDLERS
     //--------------------------------------
 
+    function publishOrPerish() {
+        if (!publisher) {
+            var parentDiv = document.getElementById("myCamera");
+            var publisherDiv = document.createElement('div'); // Create a div for the publisher to replace
+            publisherDiv.setAttribute('id', 'opentok_publisher');
+            parentDiv.appendChild(publisherDiv);
+            var publisherProps = {width:VIDEO_WIDTH / 3, height:VIDEO_HEIGHT / 3};
+            publisher = TB.initPublisher(apiKey, publisherDiv.id, publisherProps);  // Pass the replacement div id and properties
+            session.publish(publisher);
+        }
+    }
+
     function sessionConnectedHandler(event) {
         // Subscribe to all streams currently in the Session
         for (var i = 0; i < event.streams.length; i++) {
             addStream(event.streams[i]);
         }
-        show('disconnectLink');
-        show('publishLink');
-        hide('connectLink');
+
+        isPublisher && publishOrPerish();
     }
 
     function streamCreatedHandler(event) {
@@ -65,6 +73,7 @@ function setupTokBox(openTokSession) {
         for (var i = 0; i < event.streams.length; i++) {
             addStream(event.streams[i]);
         }
+        publishOrPerish();
     }
 
     function streamDestroyedHandler(event) {
@@ -76,11 +85,6 @@ function setupTokBox(openTokSession) {
         // This signals that the user was disconnected from the Session. Any subscribers and publishers
         // will automatically be removed. This default behaviour can be prevented using event.preventDefault()
         publisher = null;
-
-        show('connectLink');
-        hide('disconnectLink');
-        hide('publishLink');
-        hide('unpublishLink');
     }
 
     function connectionDestroyedHandler(event) {
@@ -98,16 +102,16 @@ function setupTokBox(openTokSession) {
      */
     function exceptionHandler(event) {
         if (event.code == 1013) {
-            document.body.innerHTML = "This page is trying to connect a third client to an OpenTok peer-to-peer session. "
-                    + "Only two clients can connect to peer-to-peer sessions.";
+            console.error("This page is trying to connect a third client to an OpenTok peer-to-peer session. "
+                    + "Only two clients can connect to peer-to-peer sessions.");
         } else {
-            alert("Exception: " + event.code + "::" + event.message);
+            console.error("Exception: " + event.code + "::" + event.message);
         }
     }
 
-    //--------------------------------------
-    //  HELPER METHODS
-    //--------------------------------------
+//--------------------------------------
+//  HELPER METHODS
+//--------------------------------------
 
     function addStream(stream) {
         // Check if this is the stream that I am publishing, and if so do not publish.
@@ -122,42 +126,11 @@ function setupTokBox(openTokSession) {
     }
 
 
-
     return {
-            connect: function () {
-                session.connect(apiKey, token);
-            },
+        disconnect:function () {
+            session.disconnect();
+        },
 
-            disconnect:function () {
-                session.disconnect();
-                hide('disconnectLink');
-                hide('publishLink');
-                hide('unpublishLink');
-            },
-
-            // Called when user wants to start publishing to the session
-            startPublishing:function () {
-                if (!publisher) {
-                    var parentDiv = document.getElementById("myCamera");
-                    var publisherDiv = document.createElement('div'); // Create a div for the publisher to replace
-                    publisherDiv.setAttribute('id', 'opentok_publisher');
-                    parentDiv.appendChild(publisherDiv);
-                    var publisherProps = {width:VIDEO_WIDTH, height:VIDEO_HEIGHT};
-                    publisher = TB.initPublisher(apiKey, publisherDiv.id, publisherProps);  // Pass the replacement div id and properties
-                    session.publish(publisher);
-                    show('unpublishLink');
-                    hide('publishLink');
-                }
-            },
-
-            stopPublishing: function () {
-                if (publisher) {
-                    session.unpublish(publisher);
-                }
-                publisher = null;
-
-                show('publishLink');
-                hide('unpublishLink');
-            }
-        };
+        openTokSession:openTokSession
+    };
 }
