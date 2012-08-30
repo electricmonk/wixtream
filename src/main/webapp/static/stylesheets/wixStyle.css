@@ -470,12 +470,16 @@ padding:10px 10px
 
 }
 
-#video {
+#subscribers {
 height:290px;
-width:66%;
+width:330px;
 background-color: #faaadd ;
+}
 
-
+#myCamera {
+height:95px;
+width:110px;
+background-color: #faaadd ;
 }
 
 #main_block{

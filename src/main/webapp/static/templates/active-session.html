@@ -1,8 +1,10 @@
-<div data-bind="if: videoController">
-	<div id="opentok_console"></div>
-	<div id="links" data-bind="with: videoController">
-       	<input type="button" value="Leave" id ="disconnectLink" data-bind="click: disconnect" />
-	</div>
-    <div id="subscribers"></div>
-    <div id="myCamera" class="publisherContainer"></div>
+<div id="main_box" class="shadow round" style="width: 600px; height: 400px">
+    <div data-bind="if: videoController">
+        <div id="opentok_console"></div>
+        <div id="links" data-bind="with: videoController">
+            <input type="button" value="Leave" id="disconnectLink" data-bind="click: disconnect"/>
+        </div>
+        <div id="myCamera" class="publisherContainer"></div>
+        <div id="subscribers"></div>
+    </div>
 </div>
