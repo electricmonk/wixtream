@@ -19,9 +19,8 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("/widget")
-public class WidgetController extends BaseController
-{
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+public class WidgetController extends BaseController {
+    @RequestMapping(method = RequestMethod.GET)
     public String widget(Model model,
                          @RequestParam String instance,
                          @RequestParam(defaultValue = "1024") Integer width) throws IOException {
@@ -34,6 +33,15 @@ public class WidgetController extends BaseController
         model.addAttribute("widgetModelJson", objectMapper.writeValueAsString(widgetModel));
 
         return "video-chat";
+
+    }
+
+    @RequestMapping(value = "/paypal", method = RequestMethod.GET)
+    public String paypal(Model model,
+                         @RequestParam String instance,
+                         @RequestParam(defaultValue = "1024") Integer width) throws IOException {
+
+        return "paypal";
 
     }
 

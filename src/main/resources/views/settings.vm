@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>App-Stub Settings</title>
+    <title>Video Chat Settings</title>
     <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-responsive.min.css" rel="stylesheet">
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://current.bootstrapcdn.com/bootstrap-v204/js/bootstrap.js"></script>
     <script type="text/javascript" src="//sslstatic.wix.com/services/js-sdk/1.8.0/js/Wix.js"></script>
+    <script type="text/javascript" src="/static/javascripts/knockout-latest.js"></script>
+    <script type="text/javascript" src="/static/javascripts/knockout.mapping.js"></script>
+    <script type="text/javascript" src="/static/javascripts/viewmodel/settings.js"></script>
 </head>
 
 <body>
-<div class="container-fluid">
-    <h1>hello setting world</h1>
-</div>
 
+<div class="container-fluid"
+     style="background-color:#F6F6F6; padding:15px 19px;color:#4C4C4C;font-family:'helvetica55',helvetica,arial,sans-serif; font-size:13px; line-height:1.5; width: 500px">
+    <div id="banner" style="height: 130px; padding: 12px, 30px; margin: 0 0 20px; border: 1px solid #E6E6E6;  ">
+    </div>
+    <div style="border: 1px solid #E6E6E6; background: white; padding:11px 20px 0; margin-top: 17px; ">
+        <div style="height: 30px; text-align: left; color:#09F;">
+            <h2>Settings</h2>
+        </div>
+        <div style="padding: 10px">
+            <fieldset data-bind="with: settings">
+                <label for="displayName">Display Name:</label>
+                <input id="displayName" type="text" data-bind="value: displayName"/>
+                <label for="pricePerSessionInUSD">Price per session (USD):</label>
+                <input id="pricePerSessionInUSD" type="text" data-bind="value: pricePerSessionInUSD"/>
+                <label for="paypalMerchantEmail">PayPal Merchant Email:</label>
+                <input id="paypalMerchantEmail" type="text" data-bind="value: paypalMerchantEmail"/>
+            </fieldset>
+        </div>
+    </div>
+    <div style="width:100%; text-align: right; padding-top: 5px";>
+        <button data-bind='click: update' style="background-clip:border-box; background-color: transparent; background-image:-webkit-linear-gradient(top, #45A1D2 50%, #338FBE 50%); border-bottom-color:#C4C4C4; border-radius:6px; border-bottom-style:solid; border-bottom-width: 1px; height:29px; width:110px; text-align: center;color:white; font-size: 14px;">Save</button>
+    </div>
+</div>
+<script type="text/javascript">
+    var viewModel = new ViewModel($model);
+    ko.applyBindings(viewModel);
+</script>
 </body>
 </html>
