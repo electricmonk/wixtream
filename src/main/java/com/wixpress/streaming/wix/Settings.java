@@ -7,6 +7,7 @@ package com.wixpress.streaming.wix;
 public class Settings {
 
     private String displayName;
+    private String paypalMerchantEmail;
     private Double pricePerSessionInUSD = 10.0;
 
     public String getDisplayName() {
@@ -15,6 +16,14 @@ public class Settings {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getPaypalMerchantEmail() {
+        return paypalMerchantEmail;
+    }
+
+    public void setPaypalMerchantEmail(String paypalMerchantEmail) {
+        this.paypalMerchantEmail = paypalMerchantEmail;
     }
 
     public Double getPricePerSessionInUSD() {
