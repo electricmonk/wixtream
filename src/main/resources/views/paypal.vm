@@ -17,10 +17,10 @@
 </div>
 <button data-bind="click:preparePayment">request session</button>
 
-<form action="https://paypal.com/webapps/adaptivepayment/flow/pay" target="PPDGFrame" data-bind="visible:payKey">
+<form action="https://paypal.com/webapps/adaptivepayment/flow/pay" target="PPDGFrame" data-bind="visible:payKey" method="GET">
     <input id="type" type="hidden" name="expType" value="mini">
     <input id="paykey" type="hidden" name="payKey" data-bind="value:payKey">
-    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_SM.gif" alt="Submit">
+    <input id="submitBtn" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_SM.gif" alt="Submit">
 </form>
 
 <script type="text/javascript" charset="utf-8">
