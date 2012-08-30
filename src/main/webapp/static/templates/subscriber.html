@@ -1,5 +1,12 @@
-<div data-bind="foreach: sessions">
-    <div>
-        <span data-bind="text: clientId, click: $root.acceptSubscriber, css: { activeSession: $root.isActive($data) }"></span>
+<div id="the_list" class="left" style="width: 300px">
+    <div id="list_title">
+        <h3> USERS PENDING</h3>
+        Click to activate
     </div>
+    <ul data-bind="foreach: sessions">
+        <li>
+            <span data-bind="text: clientId, click: $root.acceptSubscriber, css: { activeSession: $root.isActive($data) }"></span>
+        </li>
+    </ul>
+
 </div>

@@ -1,5 +1,4 @@
-<h1>Subscriber</h1>
-<div data-bind="template: status"></div>
+<div id="status" data-bind="template: status"></div>
 <div data-bind="template: 'active-session'"></div>
 
 
