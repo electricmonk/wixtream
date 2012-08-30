@@ -1,5 +1,29 @@
-<div data-bind="foreach: sessions">
-    <div>
-        <span data-bind="text: clientId, click: $root.acceptSubscriber, css: { activeSession: $root.isActive($data) }"></span>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>CSS buttons with pseudo-elements</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CSS buttons with pseudo-elements"/>
+    <meta name="keywords" content="css, css3, pseudo, buttons, anchor, before, after, web design"/>
+    <meta name="author" content="wixtream"/>
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="http://wixstreamingapp.appspot.com/static/stylesheets/wixStyle.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<div id="the_list" class="left ">
+    <div id="list_title">
+        <h3> USERS PENDING</h3>
+        Click to activate
     </div>
+    <ul data-bind="foreach: sessions">
+        <li>
+            <span data-bind="text: clientId, click: $root.acceptSubscriber, css: { activeSession: $root.isActive($data) }"></span>
+        </li>
+    </ul>
+
 </div>
+</body>
+</html>
