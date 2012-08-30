@@ -25,9 +25,11 @@ public class WidgetController extends BaseController {
                          @RequestParam String instance,
                          @RequestParam(defaultValue = "1024") Integer width) throws IOException {
 
-        AppInstance appInstance = getOrCreateApplication(instance);
+        WixSignedInstance wixSignedInstance = getInstance(instance);
+        AppInstance appInstance = getOrCreateApplication(wixSignedInstance);
 
-        WidgetModel widgetModel = new WidgetModel(instance, appInstance, Strings.nullToEmpty(appInstance.getPermissions()).toLowerCase().contains("owner"));
+        boolean owner = Strings.nullToEmpty(wixSignedInstance.getPermissions()).toLowerCase().contains("owner");
+        WidgetModel widgetModel = new WidgetModel(instance, appInstance, owner);
         model.addAttribute("model", widgetModel);
         model.addAttribute("widgetModelJson", objectMapper.writeValueAsString(widgetModel));
 

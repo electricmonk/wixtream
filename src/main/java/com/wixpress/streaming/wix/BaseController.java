@@ -32,6 +32,10 @@ public class BaseController {
 
     protected AppInstance getOrCreateApplication(String instance) {
         WixSignedInstance wixSignedInstance = authenticationResolver.unsignInstance(WIX_SECRET, instance);
+        return getOrCreateApplication(wixSignedInstance);
+    }
+
+    protected AppInstance getOrCreateApplication(WixSignedInstance wixSignedInstance) {
         AppInstance appAppInstance = appInstanceDao.getAppInstance(wixSignedInstance);
 
         if(appAppInstance == null) //new Instance created
