@@ -1,13 +1,21 @@
-(function () {
-    var apiKey = ; // Replace with your API key. See http://www.tokbox.com/
-    var sessionId = "{$queryStringSessionId}"; // Replace with your own session ID. See http://www.tokbox.com/opentok/api/tools/generator
-    var token = ''; // Replace with a generated token. See http://www.tokbox.com/opentok/api/tools/generator
+function setupTokBox(openTokSession, isPublisher, existingController) {
+    if (!openTokSession) {
+        return null;
+    }
+
+    if (existingController && existingController.openTokSession.sessionId == openTokSession.sessionId) {
+        return existingController;
+    }
+
+    var apiKey = openTokSession.apiKey;
+    var sessionId = openTokSession.sessionId;
+    var token = isPublisher ? openTokSession.publisherToken : openTokSession.subscriberToken;
 
     var session;
     var publisher;
     var subscribers = {};
-    var VIDEO_WIDTH = 320;
-    var VIDEO_HEIGHT = 240;
+    var VIDEO_WIDTH = 330;
+    var VIDEO_HEIGHT = 290;
 
     TB.addEventListener("exception", exceptionHandler);
 
@@ -29,63 +37,35 @@
         session.addEventListener('streamDestroyed', streamDestroyedHandler);
     }
 
+    session.connect(apiKey, token);
+
     //--------------------------------------
     //  LINK CLICK HANDLERS
     //--------------------------------------
 
-    /*
-     If testing the app from the desktop, be sure to check the Flash Player Global Security setting
-     to allow the page from communicating with SWF content loaded from the web. For more information,
-     see http://www.tokbox.com/opentok/build/tutorials/helloworld.html#localTest
-     */
-    function connect() {
-        session.connect(apiKey, token);
-    }
+    //--------------------------------------
+    //  OPENTOK EVENT HANDLERS
+    //--------------------------------------
 
-    function disconnect() {
-        session.disconnect();
-        hide('disconnectLink');
-        hide('publishLink');
-        hide('unpublishLink');
-    }
-
-    // Called when user wants to start publishing to the session
-    function startPublishing() {
+    function publishOrPerish() {
         if (!publisher) {
             var parentDiv = document.getElementById("myCamera");
             var publisherDiv = document.createElement('div'); // Create a div for the publisher to replace
             publisherDiv.setAttribute('id', 'opentok_publisher');
             parentDiv.appendChild(publisherDiv);
-            var publisherProps = {width:VIDEO_WIDTH, height:VIDEO_HEIGHT};
+            var publisherProps = {width:VIDEO_WIDTH / 3, height:VIDEO_HEIGHT / 3};
             publisher = TB.initPublisher(apiKey, publisherDiv.id, publisherProps);  // Pass the replacement div id and properties
             session.publish(publisher);
-            show('unpublishLink');
-            hide('publishLink');
         }
     }
-
-    function stopPublishing() {
-        if (publisher) {
-            session.unpublish(publisher);
-        }
-        publisher = null;
-
-        show('publishLink');
-        hide('unpublishLink');
-    }
-
-    //--------------------------------------
-    //  OPENTOK EVENT HANDLERS
-    //--------------------------------------
 
     function sessionConnectedHandler(event) {
         // Subscribe to all streams currently in the Session
         for (var i = 0; i < event.streams.length; i++) {
             addStream(event.streams[i]);
         }
-        show('disconnectLink');
-        show('publishLink');
-        hide('connectLink');
+
+        isPublisher && publishOrPerish();
     }
 
     function streamCreatedHandler(event) {
@@ -93,6 +73,7 @@
         for (var i = 0; i < event.streams.length; i++) {
             addStream(event.streams[i]);
         }
+        publishOrPerish();
     }
 
     function streamDestroyedHandler(event) {
@@ -104,11 +85,6 @@
         // This signals that the user was disconnected from the Session. Any subscribers and publishers
         // will automatically be removed. This default behaviour can be prevented using event.preventDefault()
         publisher = null;
-
-        show('connectLink');
-        hide('disconnectLink');
-        hide('publishLink');
-        hide('unpublishLink');
     }
 
     function connectionDestroyedHandler(event) {
@@ -126,16 +102,16 @@
      */
     function exceptionHandler(event) {
         if (event.code == 1013) {
-            document.body.innerHTML = "This page is trying to connect a third client to an OpenTok peer-to-peer session. "
-                    + "Only two clients can connect to peer-to-peer sessions.";
+            console.error("This page is trying to connect a third client to an OpenTok peer-to-peer session. "
+                    + "Only two clients can connect to peer-to-peer sessions.");
         } else {
-            alert("Exception: " + event.code + "::" + event.message);
+            console.error("Exception: " + event.code + "::" + event.message);
         }
     }
 
-    //--------------------------------------
-    //  HELPER METHODS
-    //--------------------------------------
+//--------------------------------------
+//  HELPER METHODS
+//--------------------------------------
 
     function addStream(stream) {
         // Check if this is the stream that I am publishing, and if so do not publish.
@@ -149,12 +125,12 @@
         subscribers[stream.streamId] = session.subscribe(stream, subscriberDiv.id, subscriberProps);
     }
 
-    function show(id) {
-        document.getElementById(id).style.display = 'block';
-    }
 
-    function hide(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-})();
+    return {
+        disconnect:function () {
+            session.disconnect();
+        },
 
+        openTokSession:openTokSession
+    };
+}

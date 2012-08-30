@@ -10,3 +10,11 @@ a {
 .activeSession {
     background-color: #7fffd4;
 }
+
+.publisherContainer {
+    display: inline-block;
+}
+
+#subscribers {
+    display: inline-block;
+}
