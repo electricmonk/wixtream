@@ -1,5 +1,5 @@
 <h1>Admin</h1>
-<div>
+<div id="main_box" class="shadow round" style="width=100%" >
     <div data-bind="template: 'active-session'" style="display: inline-block; width:600px"></div>
     <div data-bind="template: 'subscriber'" style="display: inline-block; width:300px; height: 300px "></div>
 </div>
