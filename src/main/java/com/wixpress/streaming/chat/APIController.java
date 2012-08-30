@@ -23,9 +23,6 @@ public class APIController extends BaseController {
     @Resource
     ChatCoordinator chatCoordinator;
 
-    @Resource
-    PayPalFacade payPalFacade;
-
     @ResponseBody
     @RequestMapping(value = "/subscribe")
     public void requestChat(@RequestParam String clientId, @RequestParam String instance) throws ChatCoordinationException {
@@ -62,16 +59,4 @@ public class APIController extends BaseController {
         return chatCoordinator.getSessions(getInstanceId(instance));
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/prepare-payment", method = RequestMethod.POST)
-    public PaymentModel preparePayment(@RequestParam String instance, @RequestParam String returnUrl) throws PaypalException {
-        AppInstance appInstance = getOrCreateApplication(instance);
-        //TODO error if no merchant account or amount set
-        return payPalFacade.preparePayment(new PaymentRequest(
-                appInstance.getSettings().getPricePerSessionInUSD(),
-                "USD",
-                appInstance.getSettings().getPaypalMerchantEmail(),
-                returnUrl
-        ));
-    }
 }
