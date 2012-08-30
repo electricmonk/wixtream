@@ -1,3 +1,4 @@
+<h1>Subscriber</h1>
 <div id="status" data-bind="template: status"></div>
 <div id="video">
     <div id="stream"></div>

@@ -7,46 +7,75 @@
  */
 var viewModel;
 (function () {
+    var sessionsMapping = {
+        'sessions': {
+            'key': function(data) {
+                return data.clientId;
+            }
+        }
+    };
+
     var ViewModelDef = function () {
         var self = this;
 
         self.userId = ko.observable('User' + (new Date).getTime().toString(36));
-        self.session = ko.observable(null);
-        self.status = ko.computed(function () {
-            if (self.session() == null) {
-                return 'not_requested';
-            }
-            if (self.session().openTokSession() == null) {
-                return 'waiting';
-            }
-            return 'connected';
+        self.pending = ko.observable({sessions:ko.observableArray([])});
+        self.sessions = ko.computed(function(){
+            return self.pending().sessions();
         });
 
-        self.getStatus = function () {
-            $.getJSON('/api/v1/chat/subscriber-status/'
-                    , {instance:widgetModel.instanceToken, clientId:self.userId()}
+        self.instanceId = window.widgetModel.instanceToken;
+        self.activeSession = ko.observable(null);
+
+        self.getList = function () {
+            $.getJSON('/api/v1/chat/subscriber-list/'
+                    , {instance:self.instanceId, clientId:self.userId()}
                     , function (data) {
-                        if (self.session()) {
-                            ko.mapping.fromJS(data, self.session());
+                        if (ko.mapping.isMapped(self.pending())) {
+                            ko.mapping.fromJS({sessions: data}, sessionsMapping, self.pending());
                         } else {
-                            self.session(ko.mapping.fromJS(data));
+                            self.pending(ko.mapping.fromJS({sessions: data}, sessionsMapping));
                         }
-                        setTimeout(self.getStatus, 1000);
+                        setTimeout(self.getList, 1000);
                     }
             );
         };
 
-        self.requestChat = function () {
-            $.getJSON('/api/v1/chat/subscribe/'
-                    , {instance:widgetModel.instanceToken, clientId:self.userId()}
-                    , function () {
-                        self.getStatus();
-                    }
-            );
+        self.isActive = function(session) {
+            var res = self.activeSession() && session.clientId() == self.activeSession().clientId;
+            console.log(res);
+            return res;
         };
 
+        self.acceptSubscriber = function (session) {
+            if (!self.isActive(session)) {
+                var data = {instance:self.instanceId, subscriberClientId:session.clientId};
+                if (self.activeSession()) {
+                    data.removePreviousSessionWithClientId = self.activeSession().clientId;
+                }
+
+                $.getJSON('/api/v1/chat/accept-subscriber/'
+                        , data
+                        , function (session) {
+                            self.activeSession(session);
+                        }
+                );
+            } else {
+                self.endActiveSession();
+            }
+        };
+
+        self.endActiveSession = function() {
+            if (self.activeSession()) {
+                $.getJSON('/api/v1/chat/end-session/'
+                                   , {instance:self.instanceId, subscriberClientId:self.activeSession().clientId}
+                           );
+                self.activeSession(null);
+            }
+        }
     };
 
     viewModel = new ViewModelDef();
+    viewModel.getList();
     ko.applyBindings(viewModel);
 })();
