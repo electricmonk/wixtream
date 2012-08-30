@@ -17,6 +17,7 @@ var viewModel;
 
     var ViewModelDef = function () {
         var self = this;
+        var activeSession = null;
 
         self.userId = ko.observable('User' + (new Date).getTime().toString(36));
         self.pending = ko.observable({sessions:ko.observableArray([])});
@@ -25,7 +26,20 @@ var viewModel;
         });
 
         self.instanceId = window.widgetModel.instanceToken;
-        self.activeSession = ko.observable(null);
+        self.activeSession = ko.computed({
+            read: function(){return activeSession},
+            write: function(data) {
+                if (data != activeSession) {
+                    var previousActiveSession = activeSession;
+                    activeSession = data;
+                    self.activeSessionChanged(activeSession, previousActiveSession);
+                }
+            }
+        });
+
+        self.activeSessionChanged = function (activeSession, previousActiveSession) {
+
+        };
 
         self.getList = function () {
             $.getJSON('/api/v1/chat/subscriber-list/'
