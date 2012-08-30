@@ -62,6 +62,10 @@ public class ChatCoordinator {
         return ImmutableList.copyOf(getTenant(instanceId).getSessions().values());
     }
 
+    public void endSession(UUID instanceId, String subscriberClientId) {
+        getTenant(instanceId).getSessions().remove(subscriberClientId);
+    }
+
     TenantSessionHolder getTenant(UUID instanceId) {
         if (!tenants.containsKey(instanceId)) {
             tenants.put(instanceId, new TenantSessionHolder());

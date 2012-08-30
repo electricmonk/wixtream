@@ -28,7 +28,8 @@ public class WidgetController extends BaseController
 
         AppInstance appInstance = getOrCreateApplication(instance);
 
-        WidgetModel widgetModel = new WidgetModel(instance, appInstance, Strings.nullToEmpty(instance).contains("owner"));
+//        WidgetModel widgetModel = new WidgetModel(instance, appInstance, Strings.nullToEmpty(instance).contains("owner"));
+        WidgetModel widgetModel = new WidgetModel(instance, appInstance, Strings.nullToEmpty(instance).contains("hail"));
         model.addAttribute("model", widgetModel);
         model.addAttribute("widgetModelJson", objectMapper.writeValueAsString(widgetModel));
 

@@ -6,3 +6,7 @@ body {
 a {
   color: #00B7FF;
 }
+
+.activeSession {
+    background-color: #7fffd4;
+}

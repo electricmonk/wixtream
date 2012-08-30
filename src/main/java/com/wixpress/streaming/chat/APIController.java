@@ -32,8 +32,20 @@ public class APIController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/accept-subscriber")
-    public ChatSession fulfillChat(@RequestParam String clientId, @RequestParam String instance) throws ChatCoordinationException {
-        return chatCoordinator.fulfillSession(getInstanceId(instance), clientId);
+    public ChatSession fulfillChat(@RequestParam String subscriberClientId,
+                                   @RequestParam(required = false) String removePreviousSessionWithClientId,
+                                   @RequestParam String instance) throws ChatCoordinationException {
+
+        if (removePreviousSessionWithClientId != null) {
+            chatCoordinator.endSession(getInstanceId(instance), removePreviousSessionWithClientId);
+        }
+        return chatCoordinator.fulfillSession(getInstanceId(instance), subscriberClientId);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/end-session")
+    public void endSession(@RequestParam String subscriberClientId, @RequestParam String instance) throws ChatCoordinationException {
+        chatCoordinator.endSession(getInstanceId(instance), subscriberClientId);
     }
 
     @ResponseBody

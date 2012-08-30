@@ -1,0 +1,5 @@
+<div data-bind="foreach: sessions">
+    <div>
+        <span data-bind="text: clientId, click: $root.acceptSubscriber, css: { activeSession: $root.isActive($data) }"></span>
+    </div>
+</div>
