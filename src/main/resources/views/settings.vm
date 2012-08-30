@@ -16,8 +16,9 @@
 <body>
 
 <div class="container-fluid"
-     style="background-color:#F6F6F6; padding:15px 19px;color:#4C4C4C;font-family:'helvetica55',helvetica,arial,sans-serif; font-size:13px; line-height:1.5; width: 500px">
-    <div id="banner" style="height: 130px; padding: 12px, 30px; margin: 0 0 20px; border: 1px solid #E6E6E6;  ">
+     style="background-color:#F6F6F6; padding:15px 19px;color:#4C4C4C;font-family:'helvetica55',helvetica,arial,sans-serif; font-size:13px; line-height:1.5; width: 560px">
+    <div id="banner" style="height: 90px; padding: 12px, 30px; margin: 0 0 20px; border: 1px solid #E6E6E6;  ">
+        <img src="http://wixstreamingapp.appspot.com/static/images/promo_baner.png">
     </div>
     <div style="border: 1px solid #E6E6E6; background: white; padding:11px 20px 0; margin-top: 17px; ">
         <div style="height: 30px; text-align: left; color:#09F;">
