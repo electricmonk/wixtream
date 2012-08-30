@@ -4,12 +4,13 @@ var ViewModel = function(instanceToken) {
 
     self.preparePayment = function() {
         $.ajax({
-            url: "/api/v1/chat/prepare-payment?instance=" + instanceToken +"&returnUrl=" + window.location.href,
+            url: "/api/v1/pay/prepare-payment?instance=" + instanceToken +"&returnUrl=" + window.location.href,
             type: "POST",
             dataType: "json",
             contentType: "application/json",
             success: function(response) {
-                self.payKey(response.payKey);
+                var url = "https://www.sandbox.paypal.com/incontext?token=" + response.token;
+                window.location.href = url;
             }
         })
     }

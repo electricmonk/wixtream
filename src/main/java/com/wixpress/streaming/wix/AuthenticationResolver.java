@@ -43,7 +43,7 @@ public class AuthenticationResolver
             appInstance.setDemoMode(true);
 
             if (signedParameter.equals("hail-cthulu"))
-                appInstance.setPermissions("owner");
+                appInstance.setPermissions("OWNER");
 
             return appInstance;
         }
