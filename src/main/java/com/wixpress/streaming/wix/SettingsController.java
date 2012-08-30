@@ -1,10 +1,12 @@
 package com.wixpress.streaming.wix;
 
+import org.codehaus.jackson.JsonGenerationException;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.UUID;
 
 /**
@@ -17,13 +19,12 @@ public class SettingsController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String settings(Model model,
-                           @RequestParam String instance,
-                           @RequestParam(required = false) Integer width)
-    {
+                           @RequestParam String instance) throws IOException {
+
         AppInstance appInstance = getOrCreateApplication(instance);
 
-        appInstance.setWidth(width);
-        model.addAttribute("appInstance", appInstance);
+        SettingsModel settingsModel = new SettingsModel(appInstance.getSettings(), instance);
+        model.addAttribute("model", objectMapper.writeValueAsString(settingsModel));
 
         return "settings";
     }
@@ -34,7 +35,8 @@ public class SettingsController extends BaseController {
         return getOrCreateApplication(instance).getSettings();
     }
 
-    @RequestMapping("/save")
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @ResponseBody
     public void getSettings(@RequestParam String instance, @RequestBody Settings settings) {
         AppInstance appInstance = getOrCreateApplication(instance);
         appInstance.setSettings(settings);

@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>App-Stub Settings</title>
+    <title>Video Chat Settings</title>
     <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-responsive.min.css" rel="stylesheet">
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://current.bootstrapcdn.com/bootstrap-v204/js/bootstrap.js"></script>
     <script type="text/javascript" src="//sslstatic.wix.com/services/js-sdk/1.8.0/js/Wix.js"></script>
+    <script type="text/javascript" src="/static/javascripts/knockout-latest.js"></script>
+    <script type="text/javascript" src="/static/javascripts/knockout.mapping.js"></script>
+    <script type="text/javascript" src="/static/javascripts/viewmodel/settings.js"></script>
 </head>
 
 <body>
-<div class="container-fluid">
-    <h1>hello setting world</h1>
-</div>
 
+<div class="container-fluid">
+    <h1>Edit your settings</h1>
+    <fieldset data-bind="with: settings">
+        <label for="displayName">Display Name:</label>
+        <input id="displayName" type="text" data-bind="value: displayName"/>
+        <label for="pricePerSessionInUSD">Price per session (USD):</label>
+        <input id="pricePerSessionInUSD" type="text" data-bind="value: pricePerSessionInUSD"/>
+    </fieldset>
+    <button data-bind='click: update'>Save</button>
+</div>
+<script type="text/javascript">
+    var viewModel = new ViewModel($model);
+    ko.applyBindings(viewModel);
+</script>
 </body>
 </html>

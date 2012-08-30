@@ -7,6 +7,7 @@ package com.wixpress.streaming.wix;
 public class Settings {
 
     private String displayName;
+    private Double pricePerSessionInUSD = 10.0;
 
     public String getDisplayName() {
         return displayName;
@@ -14,5 +15,13 @@ public class Settings {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public Double getPricePerSessionInUSD() {
+        return pricePerSessionInUSD;
+    }
+
+    public void setPricePerSessionInUSD(Double pricePerSessionInUSD) {
+        this.pricePerSessionInUSD = pricePerSessionInUSD;
     }
 }
