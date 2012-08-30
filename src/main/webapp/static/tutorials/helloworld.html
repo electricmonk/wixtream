@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+        <title>OpenTok Simple Example</title>
+		<script src="http://staging.tokbox.com/v0.91/js/TB.min.js" type="text/javascript" charset="utf-8"></script>
+		<link href="samples.css" type="text/css" rel="stylesheet" >
+        <script type="text/javascript" charset="utf-8">
+			TB.addEventListener("exception", exceptionHandler);
+			var session = TB.initSession("{$queryStringSessionId}"); // Replace with your own session ID. See http://www.tokbox.com/opentok/api/tools/generator
+			session.addEventListener("sessionConnected", sessionConnectedHandler);
+			session.addEventListener("streamCreated", streamCreatedHandler);
+			session.connect(, ""); // Replace with your API key and token. See http://www.tokbox.com/
+
+			function sessionConnectedHandler(event) {
+				 subscribeToStreams(event.streams);
+				 session.publish();
+			}
+			
+			function streamCreatedHandler(event) {
+				subscribeToStreams(event.streams);
+			}
+			
+			function subscribeToStreams(streams) {
+				for (i = 0; i < streams.length; i++) {
+					var stream = streams[i];
+					if (stream.connection.connectionId != session.connection.connectionId) {
+						session.subscribe(stream);
+					}
+				}
+			}
+			
+			function exceptionHandler(event) {
+				if (event.code == 1013) {
+					document.body.innerHTML = "This page is trying to connect a third client to an OpenTok peer-to-peer session. "
+						+ "Only two clients can connect to peer-to-peer sessions.";
+				}
+			}
+			
+
+		</script>
+    </head>
+    <body>
+    </body>
+</html>

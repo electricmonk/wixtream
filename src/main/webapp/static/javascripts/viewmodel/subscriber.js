@@ -12,6 +12,7 @@ var viewModel;
 
         self.userId = ko.observable('User' + (new Date).getTime().toString(36));
         self.session = ko.observable(null);
+        self.videoController = ko.observable(null);
         self.status = ko.computed(function () {
             if (self.session() == null) {
                 return 'not_requested';
@@ -25,12 +26,13 @@ var viewModel;
         self.getStatus = function () {
             $.getJSON('/api/v1/chat/subscriber-status/'
                     , {instance:widgetModel.instanceToken, clientId:self.userId()}
-                    , function (data) {
+                    , function (sessionStatus) {
                         if (self.session()) {
-                            ko.mapping.fromJS(data, self.session());
+                            ko.mapping.fromJS(sessionStatus, self.session());
                         } else {
-                            self.session(ko.mapping.fromJS(data));
+                            self.session(ko.mapping.fromJS(sessionStatus));
                         }
+                        self.videoController(sessionStatus && sessionStatus.openTokSession);
                         setTimeout(self.getStatus, 1000);
                     }
             );

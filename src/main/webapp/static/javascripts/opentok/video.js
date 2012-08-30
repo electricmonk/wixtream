@@ -1,13 +1,26 @@
-(function () {
-    var apiKey = ; // Replace with your API key. See http://www.tokbox.com/
-    var sessionId = "{$queryStringSessionId}"; // Replace with your own session ID. See http://www.tokbox.com/opentok/api/tools/generator
-    var token = ''; // Replace with a generated token. See http://www.tokbox.com/opentok/api/tools/generator
+
+function show(id) {
+    document.getElementById(id).style.display = 'block';
+}
+
+function hide(id) {
+    document.getElementById(id).style.display = 'none';
+}
+
+function setupTokBox(openTokSession) {
+    if (!openTokSession) {
+        return null;
+    }
+
+    var apiKey = openTokSession.apiKey;
+    var sessionId = openTokSession.sessionId;
+    var token = openTokSession.publisherToken;
 
     var session;
     var publisher;
     var subscribers = {};
-    var VIDEO_WIDTH = 320;
-    var VIDEO_HEIGHT = 240;
+    var VIDEO_WIDTH = 640;
+    var VIDEO_HEIGHT = 480;
 
     TB.addEventListener("exception", exceptionHandler);
 
@@ -32,47 +45,6 @@
     //--------------------------------------
     //  LINK CLICK HANDLERS
     //--------------------------------------
-
-    /*
-     If testing the app from the desktop, be sure to check the Flash Player Global Security setting
-     to allow the page from communicating with SWF content loaded from the web. For more information,
-     see http://www.tokbox.com/opentok/build/tutorials/helloworld.html#localTest
-     */
-    function connect() {
-        session.connect(apiKey, token);
-    }
-
-    function disconnect() {
-        session.disconnect();
-        hide('disconnectLink');
-        hide('publishLink');
-        hide('unpublishLink');
-    }
-
-    // Called when user wants to start publishing to the session
-    function startPublishing() {
-        if (!publisher) {
-            var parentDiv = document.getElementById("myCamera");
-            var publisherDiv = document.createElement('div'); // Create a div for the publisher to replace
-            publisherDiv.setAttribute('id', 'opentok_publisher');
-            parentDiv.appendChild(publisherDiv);
-            var publisherProps = {width:VIDEO_WIDTH, height:VIDEO_HEIGHT};
-            publisher = TB.initPublisher(apiKey, publisherDiv.id, publisherProps);  // Pass the replacement div id and properties
-            session.publish(publisher);
-            show('unpublishLink');
-            hide('publishLink');
-        }
-    }
-
-    function stopPublishing() {
-        if (publisher) {
-            session.unpublish(publisher);
-        }
-        publisher = null;
-
-        show('publishLink');
-        hide('unpublishLink');
-    }
 
     //--------------------------------------
     //  OPENTOK EVENT HANDLERS
@@ -149,12 +121,43 @@
         subscribers[stream.streamId] = session.subscribe(stream, subscriberDiv.id, subscriberProps);
     }
 
-    function show(id) {
-        document.getElementById(id).style.display = 'block';
-    }
 
-    function hide(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-})();
 
+    return {
+            connect: function () {
+                session.connect(apiKey, token);
+            },
+
+            disconnect:function () {
+                session.disconnect();
+                hide('disconnectLink');
+                hide('publishLink');
+                hide('unpublishLink');
+            },
+
+            // Called when user wants to start publishing to the session
+            startPublishing:function () {
+                if (!publisher) {
+                    var parentDiv = document.getElementById("myCamera");
+                    var publisherDiv = document.createElement('div'); // Create a div for the publisher to replace
+                    publisherDiv.setAttribute('id', 'opentok_publisher');
+                    parentDiv.appendChild(publisherDiv);
+                    var publisherProps = {width:VIDEO_WIDTH, height:VIDEO_HEIGHT};
+                    publisher = TB.initPublisher(apiKey, publisherDiv.id, publisherProps);  // Pass the replacement div id and properties
+                    session.publish(publisher);
+                    show('unpublishLink');
+                    hide('publishLink');
+                }
+            },
+
+            stopPublishing: function () {
+                if (publisher) {
+                    session.unpublish(publisher);
+                }
+                publisher = null;
+
+                show('publishLink');
+                hide('unpublishLink');
+            }
+        };
+}

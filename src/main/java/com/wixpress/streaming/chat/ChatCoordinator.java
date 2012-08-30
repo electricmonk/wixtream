@@ -41,8 +41,6 @@ public class ChatCoordinator {
         if (session == null) {
             throw new ChatCoordinationException("Client with id " + clientId + " has no pending session");
 
-        } else if (session.getOpenTokSession() != null) {
-            throw new ChatCoordinationException("Client with id " + clientId + " already has an active session");
 
         } else {
             try {
