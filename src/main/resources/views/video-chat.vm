@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Wixtream baExtreme</title>
     <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap.min.css" rel="stylesheet">
     <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-responsive.min.css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="//sslstatic.wix.com/services/js-sdk/1.8.0/js/Wix.js"></script>
+
+    <link rel='stylesheet' href='/static/stylesheets/style.css'/>
 
     <script type="text/javascript">
         var widgetModel = $widgetModelJson;
