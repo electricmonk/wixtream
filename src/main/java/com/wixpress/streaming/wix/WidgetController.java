@@ -40,6 +40,7 @@ public class WidgetController extends BaseController {
     public String paypal(Model model,
                          @RequestParam String instance,
                          @RequestParam(defaultValue = "1024") Integer width) throws IOException {
+        model.addAttribute("instanceToken", instance);
 
         return "paypal";
 

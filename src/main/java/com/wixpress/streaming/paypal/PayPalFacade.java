@@ -34,7 +34,6 @@ public class PayPalFacade {
         Receiver receiver = new Receiver(paymentRequest.getAmount());
         receiver.setEmail(paymentRequest.getReceiverEmail());
         receiver.setPaymentType("DIGITALGOODS");
-        receiver.setPaymentSubType("Wix Video Chat");
 
         RequestEnvelope requestEnvelope = new RequestEnvelope("en_US");
 

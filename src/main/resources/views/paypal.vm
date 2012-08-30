@@ -5,14 +5,64 @@
     <link href="http://current.bootstrapcdn.com/bootstrap-v204/css/bootstrap-responsive.min.css" rel="stylesheet">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="//sslstatic.wix.com/services/js-sdk/1.8.0/js/Wix.js"></script>
-    <script src ="https://www.paypalobjects.com/js/external/dg.js" type="text/javascript"></script>
+    <script src="https://www.paypalobjects.com/js/external/dg.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/static/javascripts/knockout-latest.js"></script>
+    <script type="text/javascript" src="/static/javascripts/knockout.mapping.js"></script>
+    <script type="text/javascript" src="/static/javascripts/viewmodel/paypal.js"></script>
+
 </head>
 
 <body>
 <div class="container-fluid">
 </div>
+<button data-bind="click:preparePayment">request session</button>
 
+<form action="https://paypal.com/webapps/adaptivepayment/flow/pay" target="PPDGFrame" data-bind="visible:payKey" method="GET">
+    <input id="type" type="hidden" name="expType" value="mini">
+    <input id="paykey" type="hidden" name="payKey" data-bind="value:payKey">
+    <input id="submitBtn" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_SM.gif" alt="Submit">
+</form>
 
+<script type="text/javascript" charset="utf-8">
+    var embeddedPPFlow = new PAYPAL.apps.DGFlow({trigger:'submitBtn'});
+    function get_full_url(url_path) {
+        var loc = window.location;
+        var url = '' + loc.protocol + '//' + loc.host + url_path;
+        return url;
+    }
+    function MyEmbeddedFlow(embeddedFlow) {
+        this.embeddedPPObj = embeddedFlow;
+        this.paymentSuccess = function () {
+            this.embeddedPPObj.closeFlow();
+            debugger; // TODO sivan, remove this mother fucker line
+        };
+        this.paymentCanceled = function () {
+            this.embeddedPPObj.closeFlow();
+            debugger; // TODO sivan, remove this mother fucker line
+        };
+    }
+    var myEmbeddedPaymentFlow = new MyEmbeddedFlow(embeddedPPFlow);
+</script>
 
+<script type="text/javascript" charset="utf-8">
+    function handleEmbeddedFlow() {
+        if (top && top.opener && top.opener.top) {
+            debugger; // TODO sivan, remove this mother fucker line
+
+//            top.opener.top.dgFlow.paymentSuccess();
+//            window.close();
+        } else if (top.myEmbeddedPaymentFlow) {
+            debugger; // TODO sivan, remove this mother fucker line
+//            top.myEmbeddedPaymentFlow.paymentSuccess();
+        } else {
+            alert('Please close the window and reload to continue');
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    var viewModel = new ViewModel('$instanceToken');
+    ko.applyBindings(viewModel);
+</script>
 </body>
 </html>

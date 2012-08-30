@@ -23,6 +23,9 @@
         <div style="height: 30px; text-align: left; color:#09F;">
             <h2>Settings</h2>
         </div>
+        <div style="padding: 2px; word-wrap: break-word">
+            Before you can start chatting with your customers, first set up your PayPal account and enter your Merchant account email, price per session and display name. Your display name will appear in your customers video chat window.
+        </div>
         <div style="padding: 10px">
             <fieldset data-bind="with: settings">
                 <label for="displayName">Display Name:</label>
