@@ -1,5 +1,10 @@
 package com.wixpress.streaming.chat;
 
+import com.wixpress.streaming.paypal.PayPalFacade;
+import com.wixpress.streaming.paypal.PaymentModel;
+import com.wixpress.streaming.paypal.PaymentRequest;
+import com.wixpress.streaming.paypal.PaypalException;
+import com.wixpress.streaming.wix.AppInstance;
 import com.wixpress.streaming.wix.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +22,9 @@ public class APIController extends BaseController {
 
     @Resource
     ChatCoordinator chatCoordinator;
+
+    @Resource
+    PayPalFacade payPalFacade;
 
     @ResponseBody
     @RequestMapping(value = "/subscribe")
@@ -40,5 +48,18 @@ public class APIController extends BaseController {
     @RequestMapping(value = "/subscriber-list", method = RequestMethod.GET)
     public List<ChatSession> waitingSessions(@RequestParam String instance) {
         return chatCoordinator.getSessions(getInstanceId(instance));
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/prepare-payment", method = RequestMethod.POST)
+    public PaymentModel preparePayment(@RequestParam String instance, @RequestParam String returnUrl) throws PaypalException {
+        AppInstance appInstance = getOrCreateApplication(instance);
+        //TODO error if no merchant account or amount set
+        return payPalFacade.preparePayment(new PaymentRequest(
+                appInstance.getSettings().getPricePerSessionInUSD(),
+                "USD",
+                appInstance.getSettings().getPaypalMerchantEmail(),
+                returnUrl
+        ));
     }
 }
