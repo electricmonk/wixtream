@@ -9,7 +9,7 @@ var ViewModel = function(instanceToken) {
             dataType: "json",
             contentType: "application/json",
             success: function(response) {
-                self.payKey = response.payKey;
+                self.payKey(response.payKey);
             }
         })
     }
