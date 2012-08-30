@@ -1,14 +1,17 @@
-<div data-bind="if: videoController">
-	<div id="opentok_console"></div>
-	<div id="links" data-bind="with: videoController">
-       	<input type="button" value="Connect" id ="connectLink" data-bind="click: connect" />
-       	<input type="button" value="Leave" id ="disconnectLink" data-bind="click: disconnect" />
-       	<input type="button" value="Start Publishing" id ="publishLink" data-bind="click: startPublishing" />
-       	<input type="button" value="Stop Publishing" id ="unpublishLink" data-bind="click: stopPublishing" />
-	</div>
-	<div id="myCamera" class="publisherContainer"></div>
-	<div id="subscribers"></div>
-	<script type="text/javascript" charset="utf-8">
-		show('connectLink');
-	</script>
+<div id="main_box" class="shadow round">
+    <div data-bind="if: videoController" id="video">
+        <div id="opentok_console"></div>
+        <div id="links" data-bind="with: videoController">
+            <input type="button" value="Connect" id="connectLink" data-bind="click: connect"/>
+            <input type="button" value="Leave" id="disconnectLink" data-bind="click: disconnect"/>
+            <input type="button" value="Start Publishing" id="publishLink" data-bind="click: startPublishing"/>
+            <input type="button" value="Stop Publishing" id="unpublishLink" data-bind="click: stopPublishing"/>
+        </div>
+        <div id="myCamera" class="publisherContainer"></div>
+        <div id="subscribers"></div>
+        <script type="text/javascript" charset="utf-8">
+            show('connectLink');
+        </script>
+    </div>
 </div>
+
