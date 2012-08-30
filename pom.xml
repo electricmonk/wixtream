@@ -13,7 +13,9 @@
         <gaeApplicationName>wixstreamingapp</gaeApplicationName>
         <gaePluginVersion>0.9.4</gaePluginVersion>
         <gae.version>1.7.0</gae.version>
-        <gae.home>${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}</gae.home>
+        <gae.home>
+            ${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}
+        </gae.home>
         <!-- Upload to http://test.latest.<applicationName>.appspot.com by default -->
         <gae.application.version>test</gae.application.version>
     </properties>
@@ -130,9 +132,9 @@
             <version>3.1.1.RELEASE</version>
         </dependency>
         <dependency>
-        	<groupId>com.opentok.api</groupId>
-        	<artifactId>opentok-java-sdk</artifactId>
-        	<version>0.91.53</version>
+            <groupId>com.opentok.api</groupId>
+            <artifactId>opentok-java-sdk</artifactId>
+            <version>0.91.53</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -145,11 +147,18 @@
             <version>1.9.1</version>
         </dependency>
         <dependency>
-          <groupId>com.paypal</groupId>
-          <artifactId>adaptive-payments</artifactId>
-          <version>1.1.93</version>
-          <scope>system</scope>
-          <systemPath>${project.basedir}/lib/adaptivepayments-java-sdk_1.1.93.jar</systemPath>
+            <groupId>com.paypal</groupId>
+            <artifactId>adaptive-payments</artifactId>
+            <version>1.1.93</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/adaptivepayments-java-sdk_1.1.93.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.paypal</groupId>
+            <artifactId>auth-signature</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/paypal-auth-signature-1.0.jar</systemPath>
         </dependency>
     </dependencies>
 

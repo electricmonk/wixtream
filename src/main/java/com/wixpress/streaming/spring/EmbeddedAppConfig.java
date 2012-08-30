@@ -2,6 +2,7 @@ package com.wixpress.streaming.spring;
 
 import com.wixpress.streaming.chat.ChatCoordinator;
 import com.wixpress.streaming.opentok.OpenTokFacade;
+import com.wixpress.streaming.paypal.PayPalFacade;
 import com.wixpress.streaming.wix.AppInstanceDao;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.Bean;
@@ -38,5 +39,10 @@ public class EmbeddedAppConfig
     @Bean
     public OpenTokFacade openTokFacade() {
         return new OpenTokFacade();
+    }
+
+    @Bean
+    public PayPalFacade payPalFacade() {
+        return new PayPalFacade();
     }
 }

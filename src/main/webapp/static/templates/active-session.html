@@ -1,0 +1,6 @@
+<h2 data-bind="text: activeSession() ? 'Active session' : 'No active session' ">Active session</h2>
+<div data-bind="if: activeSession">
+    <h3 data-bind="text: 'Session ID: '+activeSession().clientId"></h3>
+    <div data-bind="text: JSON.stringify(activeSession())"></div>
+</div>
+
