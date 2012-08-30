@@ -8,7 +8,10 @@ var ViewModel = function(settingsModel) {
             type: "POST",
             dataType: "json",
             contentType: "application/json",
-            data: ko.toJSON(self.settings)
+            data: ko.toJSON(self.settings),
+            success: function() {
+                alert("Your settings have been saved.")
+            }
         })
     }
 };
