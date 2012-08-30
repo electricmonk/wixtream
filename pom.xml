@@ -151,14 +151,14 @@
             <artifactId>adaptive-payments</artifactId>
             <version>1.1.93</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/adaptivepayments-java-sdk_1.1.93.jar</systemPath>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/adaptivepayments-java-sdk_1.1.93.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.paypal</groupId>
             <artifactId>auth-signature</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/paypal-auth-signature-1.0.jar</systemPath>
+            <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/paypal-auth-signature-1.0.jar</systemPath>
         </dependency>
     </dependencies>
 
