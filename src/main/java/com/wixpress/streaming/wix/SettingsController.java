@@ -3,9 +3,7 @@ package com.wixpress.streaming.wix;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -17,46 +15,30 @@ import java.util.UUID;
 @RequestMapping("/settings")
 public class SettingsController extends BaseController {
 
-
-    @RequestMapping(value = "/settings", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String settings(Model model,
                            @RequestParam String instance,
                            @RequestParam(required = false) Integer width)
     {
-        WixSignedInstance wixSignedInstance = authenticationResolver.unsignInstance(WIX_SECRET, instance);
-        AppInstance appAppInstance = appInstanceDao.getAppInstance(wixSignedInstance);
+        AppInstance appInstance = getOrCreateApplication(instance);
 
-        if(appAppInstance == null) //new Instance created
-        {
-            appAppInstance = appInstanceDao.addAppInstance(wixSignedInstance);
-        }
-
-        appAppInstance.setWidth(width);
-        model.addAttribute("appInstance", appAppInstance);
+        appInstance.setWidth(width);
+        model.addAttribute("appInstance", appInstance);
 
         return "settings";
     }
 
-    @RequestMapping(value = "/settingsstandalone", method = RequestMethod.GET)
-    public String settingsStandAlone(Model model,
-                                     String instanceId,
-                                     Integer width)
-    {
-        UUID uuid = null;
-        try {
-            uuid = UUID.fromString(instanceId);
-        } catch (Exception ignored) {}
-
-        AppInstance appAppInstance = appInstanceDao.getAppInstance(uuid);
-
-        if(appAppInstance == null) //new Instance created
-        {
-            appAppInstance = appInstanceDao.addAppInstance(new WixSignedInstance(uuid, new DateTime(), null, ""));
-        }
-
-        appAppInstance.setWidth(width);
-        model.addAttribute("appInstance", appAppInstance);
-
-        return "settings";
+    @RequestMapping("/get")
+    @ResponseBody
+    public Settings getSettings(@RequestParam String instance) {
+        return getOrCreateApplication(instance).getSettings();
     }
+
+    @RequestMapping("/save")
+    public void getSettings(@RequestParam String instance, @RequestBody Settings settings) {
+        AppInstance appInstance = getOrCreateApplication(instance);
+        appInstance.setSettings(settings);
+        appInstanceDao.update(appInstance);
+    }
+
 }

@@ -20,6 +20,8 @@ public class AppInstance {
     private int width;
     private int height;
 
+    private Settings settings = new Settings();
+
     public AppInstance(){}
 
     public AppInstance(WixSignedInstance wixSignedInstance) {
@@ -84,5 +86,13 @@ public class AppInstance {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 }
