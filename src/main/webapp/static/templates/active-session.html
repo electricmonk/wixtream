@@ -1,10 +1,14 @@
 <div id="main_box" class="shadow round" style="width: 600px; height: 400px">
+    <div data-bind="ifnot: videoController">
+            <div class="subscribers" style="display: inline-block; background-image: url('http://wixstreamingapp.appspot.com/static/images/screen1.png')"></div>
+            <div class="myCamera" class="publisherContainer"  style="display: inline-block; background-image: url('http://wixstreamingapp.appspot.com/static/images/40x40_icon.png'); background-position: center; background-repeat: no-repeat;"></div>
+        </div>
     <div data-bind="if: videoController">
         <div id="opentok_console"></div>
         <div id="links" data-bind="with: videoController">
-            <input type="button" value="Leave" id="disconnectLink" data-bind="click: disconnect"/>
+            <input type="button" value="Leave" id="disconnectLink" data-bind="click: disconnect" class="a_demo_two" style="padding-bottom: 10px"/>
         </div>
-        <div id="subscribers"></div>
-        <div id="myCamera" class="publisherContainer"></div>
+        <div id="subscribers" class="subscribers"></div>
+        <div id="myCamera" class="publisherContainer myCamera"></div>
     </div>
 </div>

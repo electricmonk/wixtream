@@ -470,13 +470,13 @@ padding:10px 10px
 
 }
 
-#subscribers {
+.subscribers {
 height:290px;
 width:330px;
 background-color: #faaadd ;
 }
 
-#myCamera {
+.myCamera {
 height:95px;
 width:110px;
 background-color: #faaadd ;
