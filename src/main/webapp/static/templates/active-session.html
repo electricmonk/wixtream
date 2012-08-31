@@ -1,14 +1,17 @@
-<div style="width: 480px; height: 330px">
+<div class="active-session" align="center">
     <div data-bind="ifnot: videoController" style="padding-top: 30px">
-            <div class="subscribers" style="display: inline-block; background-image: url('http://wixstreamingapp.appspot.com/static/images/screen1.png')"></div>
-            <div class="myCamera" class="publisherContainer"  style="display: inline-block; background-image: url('http://wixstreamingapp.appspot.com/static/images/40x40_icon.png'); background-position: center; background-repeat: no-repeat;"></div>
-        </div>
+        <div class="subscribers"
+             style="display: inline-block; background-image: url('http://wixstreamingapp.appspot.com/static/images/screen1.png')"></div>
+        <div class="myCamera" class="publisherContainer"
+             style="display: inline-block; background-image: url('http://wixstreamingapp.appspot.com/static/images/40x40_icon.png'); background-position: center; background-repeat: no-repeat;"></div>
+    </div>
     <div data-bind="if: videoController">
-        <div id="opentok_console"></div>
-        <div id="links" data-bind="with: videoController" style="padding-bottom: 10px">
-            <input type="button" value="Leave" id="disconnectLink" data-bind="click: disconnect" class="a_demo_two" style="padding-bottom: 10px"/>
-        </div>
         <div id="subscribers" class="subscribers"></div>
-        <div id="myCamera" class="publisherContainer myCamera"></div>
+        <div id="myCamera" class="myCamera"></div>
+    </div>
+    <div data-bind="template: 'clock'" class="inline"></div>
+    <div id="links" data-bind="if: videoController" class="inline">
+        <input type="button" value="Leave" id="disconnectLink" data-bind="click: videoController().disconnect" class="a_demo_two"
+               style="padding-bottom: 10px"/>
     </div>
 </div>

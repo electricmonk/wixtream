@@ -9,13 +9,15 @@
     <meta name="author" content="wixtream"/>
     <link rel="shortcut icon" href="../favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="http://wixstreamingapp.appspot.com/static/stylesheets/wixStyle.css"/>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/wixStyle.css"/>
+    <link rel='stylesheet' type="text/css" href='/static/stylesheets/style.css'/>
+    <link rel='stylesheet' type="text/css" href='/static/stylesheets/oneonone.css'/>
 
-    <title>Wixtream baExtreme</title>
-    <script type="text/javascript" src="//sslstatic.wix.com/services/js-sdk/1.8.0/js/Wix.js"></script>
+    <title>Video One on One</title>
+    <script type="text/javascript" src="http://sslstatic.wix.com/services/js-sdk/1.8.0/js/Wix.js"></script>
+    <script type="text/javascript" src="/static/javascripts/viewmodel/clock.js"></script>
 
-    <link rel='stylesheet' href='/static/stylesheets/style.css'/>
 
     <script type="text/javascript">
         var widgetModel = $widgetModelJson;
