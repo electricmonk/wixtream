@@ -1,5 +1,5 @@
-<div id="main_box" class="shadow round" style="width:500px">
-    <div id="status" data-bind="template: status"></div>
+<div id="main_box" class="shadow round" style="width:840px">
+    <div id="status" data-bind="template: status" style="display: inline-block;vertical-align: top;padding-right: 30px; "></div>
     <div data-bind="template: 'active-session'" style="display: inline-block; width:480px"></div>
 </div>
 
