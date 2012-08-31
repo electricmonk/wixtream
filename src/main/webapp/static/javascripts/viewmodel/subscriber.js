@@ -9,7 +9,6 @@ var viewModel;
 (function () {
     var ViewModelDef = function () {
         var self = this;
-
         self.userId = ko.observable('User' + (new Date).getTime().toString(36));
         self.session = ko.observable(null);
         self.videoController = ko.observable(null);

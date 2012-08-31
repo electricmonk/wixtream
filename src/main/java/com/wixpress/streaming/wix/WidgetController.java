@@ -28,6 +28,7 @@ public class WidgetController extends BaseController {
         WixSignedInstance wixSignedInstance = getInstance(instance);
         AppInstance appInstance = getOrCreateApplication(wixSignedInstance);
 
+        String displayName = appInstance.getSettings().getDisplayName();
         boolean owner = Strings.nullToEmpty(wixSignedInstance.getPermissions()).toLowerCase().contains("owner");
         WidgetModel widgetModel = new WidgetModel(instance, appInstance, owner);
         model.addAttribute("model", widgetModel);
