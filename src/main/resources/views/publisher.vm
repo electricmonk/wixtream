@@ -1,4 +1,4 @@
-<div id="main_box" class="shadow round" style="width:840px" >
+<div id="main_box" class="shadow round" style="width:840px; height:390px" >
     <div data-bind="template: 'active-session'" style="display: inline-block; width:480px"></div>
     <div data-bind="template: 'subscriber'" class="subscribers-list inline"></div>
 </div>
