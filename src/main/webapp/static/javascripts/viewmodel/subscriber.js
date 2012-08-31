@@ -8,7 +8,6 @@
 var viewModel;
 (function () {
     var ViewModelDef = function () {
-        debugger; // TODO sivan, remove this mother fucker line
         var self = this;
         self.userId = ko.observable('User' + (new Date).getTime().toString(36));
         self.session = ko.observable(null);

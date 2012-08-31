@@ -45,7 +45,7 @@ ul {
 
 .active-session {
     width: 480px;
-    height: 330px;
+    height: 370px;
     overflow: hidden;
     display: inline-block;
     position: relative;
@@ -71,5 +71,5 @@ ul {
 }
 
 .subscriber-view {
-    width: 510px;
+    width: 840px;
 }
