@@ -43,6 +43,11 @@ public class EmbeddedAppConfig
     }
 
     @Bean
+    public PayPalFacade payPalFacade() {
+        return new PayPalFacade();
+    }
+
+    @Bean
     public PayPalManager payPalManager() {
         return new PayPalManager("shaiy_1346341471_biz_api1.wix.com", "1346341494", "AVfWJsYgh.YXhKtKVGQG4d9xwmiNAVgU8oxJrT74Y.-S2hRF1XHNrnZv",
                 "https://api-3t.sandbox.paypal.com/nvp", "https://www.sandbox.paypal.com/webscr?cmd=_express-checkout");
