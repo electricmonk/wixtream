@@ -3,6 +3,7 @@ package com.wixpress.streaming.spring;
 import com.wixpress.streaming.chat.ChatCoordinator;
 import com.wixpress.streaming.opentok.OpenTokFacade;
 import com.wixpress.streaming.paypal.PayPalFacade;
+import com.wixpress.streaming.paypal.PayPalManager;
 import com.wixpress.streaming.wix.AppInstanceDao;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.Bean;
@@ -42,7 +43,8 @@ public class EmbeddedAppConfig
     }
 
     @Bean
-    public PayPalFacade payPalFacade() {
-        return new PayPalFacade();
+    public PayPalManager payPalManager() {
+        return new PayPalManager("shaiy_1346341471_biz_api1.wix.com", "1346341494", "AVfWJsYgh.YXhKtKVGQG4d9xwmiNAVgU8oxJrT74Y.-S2hRF1XHNrnZv",
+                "https://api-3t.sandbox.paypal.com/nvp", "https://www.sandbox.paypal.com/webscr?cmd=_express-checkout");
     }
 }

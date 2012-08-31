@@ -52,8 +52,12 @@ public class PayPalFacade {
         item.setName("Video Chat");
         item.setItemCategory(ItemCategoryType.DIGITAL);
 
+        SellerDetailsType sellerDetailsType = new SellerDetailsType();
+        sellerDetailsType.setPayPalAccountID(paymentRequest.getReceiverEmail());
+
         PaymentDetailsType pdt = new PaymentDetailsType();
         pdt.setPaymentDetailsItem(ImmutableList.of(item));
+        pdt.setSellerDetails(sellerDetailsType);
 
         details.setReturnURL(paymentRequest.getReturnUrl());
         details.setCancelURL(paymentRequest.getReturnUrl());

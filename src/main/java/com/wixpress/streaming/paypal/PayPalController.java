@@ -16,14 +16,22 @@ import javax.annotation.Resource;
 public class PayPalController extends BaseController {
 
     @Resource
+    PayPalManager payPalManager;
+
+    @Resource
     PayPalFacade payPalFacade;
 
     @ResponseBody
     @RequestMapping(value = "/prepare-payment", method = RequestMethod.POST)
     public PaymentModel preparePayment(@RequestParam String instance) throws PaypalException {
         AppInstance appInstance = getOrCreateApplication(instance);
+        Double pricePerSessionInUSD = appInstance.getSettings().getPricePerSessionInUSD();
+
+//        payPalManager.startPurchase(
+//                "http://wixstreamingapp.appspot.com/api/v1/pay/complete-payment?instance=" + instance + "&price=" + pricePerSessionInUSD)
+
         return payPalFacade.preparePayment(new PaymentRequest(
-                appInstance.getSettings().getPricePerSessionInUSD(),
+                pricePerSessionInUSD,
                 "USD",
                 appInstance.getSettings().getPaypalMerchantEmail(),
                 "http://wixstreamingapp.appspot.com/api/v1/pay/complete-payment/" + instance
