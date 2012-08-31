@@ -14,7 +14,7 @@ function setupTokBox(openTokSession, isPublisher, existingController) {
     var session;
     var publisher;
     var subscribers = {};
-    var VIDEO_WIDTH = 330;
+    var VIDEO_WIDTH = 440;
     var VIDEO_HEIGHT = 290;
 
     TB.addEventListener("exception", exceptionHandler);

@@ -18,6 +18,7 @@ var viewModel;
     var ViewModelDef = function () {
         var self = this;
         var activeSession = null;
+        var startTime = null;
 
         self.userId = ko.observable('User' + (new Date).getTime().toString(36));
         self.pending = ko.observable({sessions:ko.observableArray([])});
@@ -30,6 +31,10 @@ var viewModel;
 
         self.videoController = ko.observable(null);
 
+        self.elapsedSessionTime = ko.computed(function(){
+            return getSessionTimeString(startTime);
+        });
+
         self.activeSessionChanged = function (activeSession, previousActiveSession) {
 
         };
@@ -38,6 +43,7 @@ var viewModel;
             $.getJSON('/api/v1/chat/subscriber-list/'
                     , {instance:self.instanceId, clientId:self.userId()}
                     , function (data) {
+                        data = _.sortBy(data, function(item){return item.created});
                         if (ko.mapping.isMapped(self.pending())) {
                             ko.mapping.fromJS({sessions: data}, sessionsMapping, self.pending());
                         } else {
@@ -49,9 +55,7 @@ var viewModel;
         };
 
         self.isActive = function(session) {
-            var res = self.activeSession() && session.clientId() == self.activeSession().clientId;
-            console.log(res);
-            return res;
+            return self.activeSession() && session.clientId() == self.activeSession().clientId;
         };
 
         self.acceptSubscriber = function (session) {
@@ -66,6 +70,7 @@ var viewModel;
                         , function (session) {
                             self.activeSession(session);
                             self.videoController(setupTokBox(session.openTokSession, true, self.videoController()));
+                            startTime = new Date();
                         }
                 );
             } else {
@@ -80,6 +85,7 @@ var viewModel;
                            );
                 self.activeSession(null);
             }
+            startTime = null;
             self.videoController(null);
         }
     };

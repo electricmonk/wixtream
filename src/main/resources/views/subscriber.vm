@@ -1,5 +1,5 @@
-<div id="main_box" class="shadow round" style="width:840px; height:390px">
-    <div id="status" data-bind="template: status" style="display: inline-block;vertical-align: top;padding-right: 30px; "></div>
+<div id="main_box" class="shadow round subscriber-view">
+    <div id="status" data-bind="template: status"></div>
     <div data-bind="template: 'active-session'" style="display: inline-block; width:480px"></div>
 </div>
 
