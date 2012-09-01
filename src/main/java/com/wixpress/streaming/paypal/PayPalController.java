@@ -22,9 +22,6 @@ public class PayPalController extends BaseController {
     PayPalManager payPalManager;
 
     @Resource
-    PayPalFacade payPalFacade;
-
-    @Resource
     ChatCoordinator chatCoordinator;
 
     @RequestMapping(value = "/prepare-payment", method = RequestMethod.POST)

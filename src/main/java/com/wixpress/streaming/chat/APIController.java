@@ -1,13 +1,11 @@
 package com.wixpress.streaming.chat;
 
-import com.wixpress.streaming.paypal.PayPalFacade;
-import com.wixpress.streaming.paypal.PaymentModel;
-import com.wixpress.streaming.paypal.PaymentRequest;
-import com.wixpress.streaming.paypal.PaypalException;
-import com.wixpress.streaming.wix.AppInstance;
 import com.wixpress.streaming.wix.BaseController;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;

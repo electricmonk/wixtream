@@ -2,13 +2,11 @@ package com.wixpress.streaming.spring;
 
 import com.wixpress.streaming.chat.ChatCoordinator;
 import com.wixpress.streaming.opentok.OpenTokFacade;
-import com.wixpress.streaming.paypal.PayPalFacade;
 import com.wixpress.streaming.paypal.PayPalManager;
 import com.wixpress.streaming.wix.AppInstanceDao;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -40,11 +38,6 @@ public class EmbeddedAppConfig
     @Bean
     public OpenTokFacade openTokFacade() {
         return new OpenTokFacade();
-    }
-
-    @Bean
-    public PayPalFacade payPalFacade() {
-        return new PayPalFacade();
     }
 
     @Bean
