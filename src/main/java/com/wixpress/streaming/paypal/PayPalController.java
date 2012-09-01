@@ -23,24 +23,29 @@ public class PayPalController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "/prepare-payment", method = RequestMethod.POST)
-    public PaymentModel preparePayment(@RequestParam String instance) throws PaypalException {
+    public String preparePayment(@RequestParam String instance) throws PaypalException {
         AppInstance appInstance = getOrCreateApplication(instance);
         Double pricePerSessionInUSD = appInstance.getSettings().getPricePerSessionInUSD();
 
-//        payPalManager.startPurchase(
-//                "http://wixstreamingapp.appspot.com/api/v1/pay/complete-payment?instance=" + instance + "&price=" + pricePerSessionInUSD)
-
-        return payPalFacade.preparePayment(new PaymentRequest(
-                pricePerSessionInUSD,
-                "USD",
+        return payPalManager.startPurchase(
+                "http://wixstreamingapp.appspot.com/api/v1/pay/complete-payment?instance=" + instance + "&price=" + pricePerSessionInUSD,
                 appInstance.getSettings().getPaypalMerchantEmail(),
-                "http://wixstreamingapp.appspot.com/api/v1/pay/complete-payment/" + instance
-        ));
+                appInstance.getSettings().getPricePerSessionInUSD(),
+                "USD"
+                );
+
+//        return payPalFacade.preparePayment(new PaymentRequest(
+//                pricePerSessionInUSD,
+//                "USD",
+//                appInstance.getSettings().getPaypalMerchantEmail(),
+//                "http://wixstreamingapp.appspot.com/api/v1/pay/complete-payment/" + instance
+//        ));
     }
 
-    @RequestMapping(value = "/complete-payment/{instance}", method = RequestMethod.GET)
-    public String completePayment(@PathVariable String instance, @RequestParam String token) throws PaypalException {
-        payPalFacade.completePayment(new CompletePaymentRequest(token));
+    @RequestMapping(value = "/complete-payment", method = RequestMethod.GET)
+    public String completePayment(@RequestParam String instance, @RequestParam String token) throws PaypalException {
+//        payPalFacade.completePayment(new CompletePaymentRequest(token));
+        payPalManager.finishPurchase(token);
         return "redirect:/widget/paypal?instance=" + instance;
     }
 

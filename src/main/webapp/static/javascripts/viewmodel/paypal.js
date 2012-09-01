@@ -6,11 +6,10 @@ var ViewModel = function(instanceToken) {
         $.ajax({
             url: "/api/v1/pay/prepare-payment?instance=" + instanceToken +"&returnUrl=" + window.location.href,
             type: "POST",
-            dataType: "json",
+//            dataType: "json",
             contentType: "application/json",
             success: function(response) {
-                var url = "https://www.sandbox.paypal.com/incontext?token=" + response.token;
-                window.location.href = url;
+                window.location.href = response;
             }
         })
     }
