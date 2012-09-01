@@ -9,9 +9,5 @@
         <div id="subscribers" class="subscribers"></div>
         <div id="myCamera" class="myCamera"></div>
     </div>
-    <div data-bind="template: 'clock'" class="inline"></div>
-    <div id="links" data-bind="if: videoController" class="inline">
-        <input type="button" value="Leave" id="disconnectLink" data-bind="click: videoController().disconnect" class="a_demo_two"
-               style="padding-bottom: 10px"/>
-    </div>
+    <div data-bind="text: elapsedSessionTime" class="clock"></div>
 </div>
