@@ -34,19 +34,21 @@ var viewModel;
             $.getJSON('/api/v1/chat/subscriber-status/'
                     , {instance:widgetModel.instanceToken, clientId:self.userId()}
                     , function (sessionStatus) {
-                        if (self.session()) {
-                            ko.mapping.fromJS(sessionStatus, self.session());
-                        } else {
-                            self.session(ko.mapping.fromJS(sessionStatus));
-                        }
+                        if (sessionStatus) {
+                            if (self.session()) {
+                                ko.mapping.fromJS(sessionStatus, self.session());
+                            } else {
+                                self.session(ko.mapping.fromJS(sessionStatus));
+                            }
 
-                        var tmp = setupTokBox(sessionStatus.openTokSession, false, self.videoController());
-                        if (tmp != self.videoController()) {
-                            self.videoController(tmp);
-                            self.startTimer();
-                        }
+                            var tmp = setupTokBox(sessionStatus.openTokSession, false, self.videoController());
+                            if (tmp != self.videoController()) {
+                                self.videoController(tmp);
+                                self.startTimer();
+                            }
 
-                        setTimeout(self.getStatus, 1000);
+                            setTimeout(self.getStatus, 1000);
+                        }
                     }
             );
         };
