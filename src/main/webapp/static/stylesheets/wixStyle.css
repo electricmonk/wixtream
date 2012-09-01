@@ -431,6 +431,7 @@ h3 {
 
     padding: 10px 25px 25px 25px;
     overflow: hidden;
+    vertical-align: top;
 }
 
 #counter {

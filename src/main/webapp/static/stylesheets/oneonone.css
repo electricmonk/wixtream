@@ -9,14 +9,16 @@ ul {
 }
 
 .subscribers-list {
-    width:300px;
+    width: 300px;
     height: 300px;
+    display: inline-block;
 }
 
 .subscriber {
     padding: 10px 0 10px 40px;
     display: block;
     border: #e5e5e5 1px solid;
+    text-align: left;
 
     background-image: linear-gradient(bottom, rgb(247, 247, 247) 38%, rgb(255, 255, 255) 60%);
     background-image: -o-linear-gradient(bottom, rgb(247, 247, 247) 38%, rgb(255, 255, 255) 60%);
@@ -58,6 +60,7 @@ ul {
     left: 0;
 }
 
+
 .subscribers {
     height: 290px;
     width: 480px;
@@ -71,10 +74,22 @@ ul {
     background-color: #faaadd;
     position: absolute;
     right: 10px;
-    top: 40px;
-    display: inline-block;
+    top: 10px;
+    display: block;
 }
 
 .subscriber-view {
     width: 840px;
+}
+
+.publisher-view {
+    vertical-align: top;
+    width: 840px;
+    height: 390px;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.publisher-view>div{
+    vertical-align: top;
 }
