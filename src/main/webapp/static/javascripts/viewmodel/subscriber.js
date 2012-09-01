@@ -8,6 +8,8 @@
 var viewModel;
 (function () {
     var ViewModelDef = function () {
+        clockViewModel.call(this);
+
         var self = this;
         self.userId = ko.observable('User' + (new Date).getTime().toString(36));
         self.session = ko.observable(null);
@@ -35,6 +37,7 @@ var viewModel;
                         var tmp = setupTokBox(sessionStatus.openTokSession, false, self.videoController());
                         if (tmp != self.videoController()) {
                             self.videoController(tmp);
+                            self.startTimer();
                         }
 
                         setTimeout(self.getStatus, 1000);

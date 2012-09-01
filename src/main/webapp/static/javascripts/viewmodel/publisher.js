@@ -8,8 +8,8 @@
 var viewModel;
 (function () {
     var sessionsMapping = {
-        'sessions': {
-            'key': function(data) {
+        'sessions':{
+            'key':function (data) {
                 return data.clientId;
             }
         }
@@ -18,11 +18,12 @@ var viewModel;
     var ViewModelDef = function () {
         var self = this;
         var activeSession = null;
-        var startTime = null;
+
+        clockViewModel.call(this);
 
         self.userId = ko.observable('User' + (new Date).getTime().toString(36));
         self.pending = ko.observable({sessions:ko.observableArray([])});
-        self.sessions = ko.computed(function(){
+        self.sessions = ko.computed(function () {
             return self.pending().sessions();
         });
 
@@ -31,9 +32,6 @@ var viewModel;
 
         self.videoController = ko.observable(null);
 
-        self.elapsedSessionTime = ko.computed(function(){
-            return getSessionTimeString(startTime);
-        });
 
         self.activeSessionChanged = function (activeSession, previousActiveSession) {
 
@@ -43,18 +41,20 @@ var viewModel;
             $.getJSON('/api/v1/chat/subscriber-list/'
                     , {instance:self.instanceId, clientId:self.userId()}
                     , function (data) {
-                        data = _.sortBy(data, function(item){return item.created});
+                        data = _.sortBy(data, function (item) {
+                            return item.created
+                        });
                         if (ko.mapping.isMapped(self.pending())) {
-                            ko.mapping.fromJS({sessions: data}, sessionsMapping, self.pending());
+                            ko.mapping.fromJS({sessions:data}, sessionsMapping, self.pending());
                         } else {
-                            self.pending(ko.mapping.fromJS({sessions: data}, sessionsMapping));
+                            self.pending(ko.mapping.fromJS({sessions:data}, sessionsMapping));
                         }
                         setTimeout(self.getList, 1000);
                     }
             );
         };
 
-        self.isActive = function(session) {
+        self.isActive = function (session) {
             return self.activeSession() && session.clientId() == self.activeSession().clientId;
         };
 
@@ -70,7 +70,7 @@ var viewModel;
                         , function (session) {
                             self.activeSession(session);
                             self.videoController(setupTokBox(session.openTokSession, true, self.videoController()));
-                            startTime = new Date();
+                            self.startTimer();
                         }
                 );
             } else {
@@ -78,14 +78,14 @@ var viewModel;
             }
         };
 
-        self.endActiveSession = function() {
+        self.endActiveSession = function () {
             if (self.activeSession()) {
                 $.getJSON('/api/v1/chat/end-session/'
-                                   , {instance:self.instanceId, subscriberClientId:self.activeSession().clientId}
-                           );
+                        , {instance:self.instanceId, subscriberClientId:self.activeSession().clientId}
+                );
                 self.activeSession(null);
             }
-            startTime = null;
+            self.stopTimer();
             self.videoController(null);
         }
     };
