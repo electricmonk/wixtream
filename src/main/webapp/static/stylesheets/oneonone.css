@@ -11,10 +11,7 @@ ul {
 .subscribers-list {
     width:300px;
     height: 300px;
-
 }
-
-
 
 .subscriber {
     padding: 10px 0 10px 40px;
@@ -27,6 +24,14 @@ ul {
     background-image: -webkit-linear-gradient(bottom, rgb(247, 247, 247) 38%, rgb(255, 255, 255) 60%);
     background-image: -ms-linear-gradient(bottom, rgb(247, 247, 247) 38%, rgb(255, 255, 255) 60%);
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.38, rgb(247, 247, 247)), color-stop(0.6, rgb(255, 255, 255)));
+
+    cursor: pointer;
+    webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .subscriber:hover, .subscriber.activeSession, .subscriber.activeSession:hover {
