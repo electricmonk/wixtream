@@ -29,8 +29,12 @@
         </div>
         <div style="padding: 10px">
             <fieldset data-bind="with: settings">
-                <label for="displayName">Display Name:</label>
+                <label for="displayName">Display Title:</label>
                 <input id="displayName" type="text" data-bind="value: displayName"/>
+                <label for="description">Description</label>
+                <input id="description" type="text" data-bind="value: description"/>
+                <label for="sessionLength">Single Session Length</label>
+                <input id="sessionLength" type="text" data-bind="value: sessionLength"/>
                 <label for="pricePerSessionInUSD">Price per session (USD):</label>
                 <input id="pricePerSessionInUSD" type="text" data-bind="value: pricePerSessionInUSD"/>
                 <label for="paypalMerchantEmail">PayPal Merchant Email:</label>
