@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script type="text/javascript">
+    if (window.opener) {
+        opener.viewModel.subscribeToChat('$clientId');
+        window.close();
+    }
+    else if (top.dg.isOpen() == true) {
+        top.viewModel.subscribeToChat('$clientId');
+        top.dg.closeFlow();
+    }
+</script>
+</body>

@@ -7,6 +7,12 @@
  */
 var viewModel;
 (function () {
+    ko.bindingHandlers.expressCheckout = {
+        init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
+            window.dg = new PAYPAL.apps.DGFlow({ trigger: valueAccessor(), expType:"instant"});
+        }
+    };
+
     var ViewModelDef = function () {
         clockViewModel.call(this);
 
@@ -16,7 +22,7 @@ var viewModel;
         self.videoController = ko.observable(null);
         self.status = ko.computed(function () {
             if (self.session() == null) {
-                return 'not_requested';
+                return {name: 'not_requested'};
             }
             if (self.session().openTokSession() == null) {
                 return 'waiting';
@@ -43,6 +49,11 @@ var viewModel;
                         setTimeout(self.getStatus, 1000);
                     }
             );
+        };
+
+        self.subscribeToChat = function(userId) {
+            self.userId(userId);
+            self.getStatus();
         };
 
         self.requestChat = function () {

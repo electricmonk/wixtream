@@ -79,7 +79,7 @@ public class PayPalManager {
      * payment (PAYMENTREQUEST_0_[...]) and one item (L_PAYMENTREQUEST_0_[...]0).
      * https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_SetExpressCheckout
      */
-    public String startPurchase(String returnUrl, String merchantEmail, double price, String currency) {
+    public String startPurchase(String clientId, String returnUrl, String merchantEmail, double price, String currency) {
         // include the userId and itemId in the return urls so we can access them later
 
         String data =
@@ -91,7 +91,7 @@ public class PayPalManager {
                         "&PAYMENTREQUEST_0_PAYMENTACTION=Sale" +
                         "&PAYMENTREQUEST_0_SELLERPAYPALACCOUNTID=" + merchantEmail +
                         "&PAYMENTREQUEST_0_CURRENCYCODE=" + currency +
-                        getPurchaseData("" + price) +
+                        getPurchaseData(clientId, "" + price) +
                         "&RETURNURL=" + returnUrl +
                         "&CANCELURL=" + returnUrl +
                         "";
@@ -112,7 +112,6 @@ public class PayPalManager {
      * there's a problem with the purchase itself.
      * https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_GetExpressCheckoutDetails
      *
-     *
      * @param token The token created and returned by Paypal in step 1 (from the return url)
      * @return Returns the user's paypal PayerId for use in the last step
      */
@@ -130,7 +129,7 @@ public class PayPalManager {
             throw new RuntimeException("Payment has not been initiated by the user.");
         }
 
-        return new PaymentData(payerId, results.get("AMT"));
+        return new PaymentData(payerId, results.get("AMT"), results.get("PAYMENTREQUEST_0_CUSTOM"));
     }
 
     /**
@@ -140,14 +139,14 @@ public class PayPalManager {
      * via the paypal website. Requires passing in purchase information again.
      * https://cms.paypal.com/us/cgi-bin/?cmd=_render-content&content_ID=developer/e_howto_api_nvp_r_DoExpressCheckoutPayment
      */
-    public void finishPurchase(String token) throws PaypalException {
+    public String finishPurchase(String token) throws PaypalException {
         PaymentData paymentData = validateDetails(token);
         String data =
                 "METHOD=DoExpressCheckoutPayment" +
                         getAuthenticationData() +
                         "&TOKEN=" + encodeValue(token) +
                         "&PAYERID=" + encodeValue(paymentData.payerId) +
-                        getPurchaseData(paymentData.price) +
+                        getPurchaseData(paymentData.clientId, paymentData.price) +
                         "";
 
         HashMap<String, String> results = doServerCall(data);
@@ -161,21 +160,19 @@ public class PayPalManager {
             throw new PaypalException("Failed performing payment, got status " + status);
         }
 
+        return paymentData.clientId;
     }
 
     /**
      * Return the name-value-pair parameters required for SetExpressCheckout and
      * DoExpressCheckoutPayment steps.
      */
-    protected String getPurchaseData(String price) {
+    protected String getPurchaseData(String clientId, String price) {
         return
                 "&PAYMENTREQUEST_0_AMT=" + price +
                         "&PAYMENTREQUEST_0_ITEMAMT=" + price +
-//			"&PAYMENTREQUEST_0_DESC=" + itemDescription +
-//			"&PAYMENTREQUEST_0_CUSTOM=" + userId +
-//			"&PAYMENTREQUEST_0_INVNUM=" + itemId +
+                        "&PAYMENTREQUEST_0_CUSTOM=" + clientId +
                         "&L_PAYMENTREQUEST_0_NAME0=VideoChat" +
-//			"&L_PAYMENTREQUEST_0_DESC0=" + itemDescription +
                         "&L_PAYMENTREQUEST_0_AMT0=" + price +
                         "&L_PAYMENTREQUEST_0_QTY0=" + 1 +
                         "&L_PAYMENTREQUEST_0_ITEMCATEGORY0=Digital" +
@@ -307,10 +304,12 @@ public class PayPalManager {
     static class PaymentData {
         final String payerId;
         final String price;
+        final String clientId;
 
-        PaymentData(String payerId, String price) {
+        PaymentData(String payerId, String price, String clientId) {
             this.payerId = payerId;
             this.price = price;
+            this.clientId = clientId;
         }
     }
 }

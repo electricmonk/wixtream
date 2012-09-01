@@ -6,6 +6,14 @@
     <span style="font-size: 18px" data-bind="text:widgetModel.appInstance.settings.sessionLength"></span>
     <span style="font-size: 18px"> session</span>
 </div>
+
+<form action="/api/v1/pay/prepare-payment" method="post" data-bind="expressCheckout: BuyStart">
+    <input type="hidden" name="instance" data-bind="value:widgetModel.instanceToken"/>
+    <label for="clientId">Enter your name:</label>
+    <input type="text" name="clientId" id="clientId"/>
+    <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_dg_pay_w_paypal.gif" id="BuyStart"/>
+</form>
+
 <div class="status" data-bind="click: requestChat" style="padding-top: 50px;">
-    <span class="a_demo_two" >Request a Chat</span>
+    <span class="a_demo_two" >Request a Chat (skip payment)</span>
 </div>
