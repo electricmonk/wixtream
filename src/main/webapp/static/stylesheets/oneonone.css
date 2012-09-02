@@ -91,6 +91,7 @@ ul {
     width: 530px;
     position: relative;
     margin-top: 14px;
+    background: #f8f8f8 url('http://wixstreamingapp.appspot.com/static/images/bg.jpg') repeat top left;
 }
 
 .publisher-view {
@@ -98,6 +99,7 @@ ul {
     width: 840px;
     padding: 30px;
     text-align: center;
+    background: #f8f8f8 url('http://wixstreamingapp.appspot.com/static/images/bg.jpg') repeat top left;
 }
 
 .publisher-view>div.active-session {
