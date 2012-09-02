@@ -40,7 +40,7 @@ public class PayPalController extends BaseController {
     @RequestMapping(value = "/complete-payment", method = RequestMethod.GET)
     public String completePayment(@RequestParam String instance, @RequestParam String token, Model model) throws PaypalException, ChatCoordinationException {
         String clientId = payPalManager.finishPurchase(token);
-        chatCoordinator.createSession(getInstance(instance).getInstanceId(), clientId);
+        chatCoordinator.createSession(getInstance(instance).getInstanceId(), clientId, true);
         model.addAttribute("clientId", clientId);
 
         return "paypal-complete";

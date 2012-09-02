@@ -24,7 +24,7 @@ public class APIController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "/subscribe")
     public void requestChat(@RequestParam String clientId, @RequestParam String instance) throws ChatCoordinationException {
-        chatCoordinator.createSession(getInstanceId(instance), clientId);
+        chatCoordinator.createSession(getInstanceId(instance), clientId, false);
     }
 
     @ResponseBody

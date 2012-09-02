@@ -11,11 +11,13 @@ public class ChatSession {
 
     private final String clientId;
     private final DateTime created;
+    private final boolean paid;
     private OpenTokSession openTokSession = null;
 
-    public ChatSession(String clientId, DateTime created) {
+    public ChatSession(String clientId, DateTime created, boolean paid) {
         this.clientId = clientId;
         this.created = created;
+        this.paid = paid;
     }
 
     public OpenTokSession getOpenTokSession() {
@@ -32,5 +34,9 @@ public class ChatSession {
 
     public DateTime getCreated() {
         return created;
+    }
+
+    public boolean isPaid() {
+        return paid;
     }
 }
