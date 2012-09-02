@@ -1,11 +1,13 @@
 <div class="centered">
-    <div style="vertical-align: middle;">
-        <div style="font-size: 28px" data-bind="text:widgetModel.appInstance.settings.displayName"></div>
-        <div style="font-size: 18px" data-bind="text:widgetModel.appInstance.settings.description"></div>
-        <span style="font-size: 18px" data-bind="text:widgetModel.appInstance.settings.pricePerSessionInUSD"></span>
-        <span style="font-size: 18px">$ for a </span>
-        <span style="font-size: 18px" data-bind="text:widgetModel.appInstance.settings.sessionLength"></span>
-        <span style="font-size: 18px"> session</span>
+    <div style="vertical-align: middle; margin-bottom: 2em">
+        <h1 data-bind="text:widgetModel.appInstance.settings.displayName"></h1>
+
+        <h2 data-bind="text:widgetModel.appInstance.settings.description"></h2>
+        <span>Pricing: </span>
+        <span data-bind="text:widgetModel.appInstance.settings.pricePerSessionInUSD"></span>
+        <span>$ for a </span>
+        <span data-bind="text:widgetModel.appInstance.settings.sessionLength"></span>
+        <span> session</span>
     </div>
 
     <form action="/api/v1/pay/prepare-payment" method="post" data-bind="expressCheckout: BuyStart">
@@ -13,9 +15,10 @@
         <label for="clientId">Enter your name:</label>
         <input type="text" name="clientId" id="clientId" data-bind="value: userId"/>
         <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_dg_pay_w_paypal.gif" id="BuyStart"/>
+        <span style="vertical-align: top;">or</span>
+
+        <div class="inline" data-bind="click: requestChat">Request a Free Chat</div>
     </form>
 
-    <div class="status" data-bind="click: requestChat" style="padding-top: 50px;">
-        <span class="action-button">Request a Chat (skip payment)</span>
-    </div>
+
 </div>

@@ -77,18 +77,16 @@ function setupTokBox(openTokSession, isPublisher, existingController) {
     }
 
     function streamDestroyedHandler(event) {
-        // This signals that a stream was destroyed. Any Subscribers will automatically be removed.
-        // This default behaviour can be prevented using event.preventDefault()
+        viewModel.endActiveSession();
     }
 
     function sessionDisconnectedHandler(event) {
-        // This signals that the user was disconnected from the Session. Any subscribers and publishers
-        // will automatically be removed. This default behaviour can be prevented using event.preventDefault()
         publisher = null;
+        viewModel.endActiveSession();
     }
 
     function connectionDestroyedHandler(event) {
-        // This signals that connections were destroyed
+        viewModel.endActiveSession();
     }
 
     function connectionCreatedHandler(event) {

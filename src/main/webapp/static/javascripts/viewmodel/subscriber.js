@@ -8,8 +8,8 @@
 var viewModel;
 (function () {
     ko.bindingHandlers.expressCheckout = {
-        init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
-            window.dg = new PAYPAL.apps.DGFlow({ trigger: valueAccessor(), expType:"instant"});
+        init:function (element, valueAccessor, allBindingsAccessor, viewModel) {
+            window.dg = new PAYPAL.apps.DGFlow({ trigger:valueAccessor(), expType:"instant"});
         }
     };
 
@@ -17,18 +17,22 @@ var viewModel;
         clockViewModel.call(this);
 
         var self = this;
+        self.widgetModel = window.widgetModel;
         self.userId = ko.observable('User' + (new Date).getTime().toString(36));
         self.session = ko.observable(null);
         self.videoController = ko.observable(null);
         self.status = ko.computed(function () {
             if (self.session() == null) {
-                return {name: 'not_requested'};
+                return {name:'not_requested'};
             }
             if (self.session().openTokSession() == null) {
                 return 'waiting';
             }
+            self.activeMessage(false);
             return 'connected';
         });
+
+        self.activeMessage = ko.observable(true);
 
         self.getStatus = function () {
             $.getJSON('/api/v1/chat/subscriber-status/'
@@ -53,7 +57,7 @@ var viewModel;
             );
         };
 
-        self.subscribeToChat = function(userId) {
+        self.subscribeToChat = function (userId) {
             self.userId(userId);
             self.getStatus();
         };
@@ -67,6 +71,12 @@ var viewModel;
             );
         };
 
+        self.endActiveSession = function () {
+            self.endTimer();
+            self.videoController() && self.videoController().disconnect();
+            self.videoController(null);
+            self.session(null);
+        }
     };
 
     viewModel = new ViewModelDef();

@@ -313,15 +313,6 @@ h3 {
     height: 60px;
 
     padding: 10px 10px;
-
-    background: #83c600;
-    background-image: linear-gradient(bottom, rgb(118, 192, 0) 23%, rgb(190, 232, 23) 73%);
-    background-image: -o-linear-gradient(bottom, rgb(118, 192, 0) 23%, rgb(190, 232, 23) 73%);
-    background-image: -moz-linear-gradient(bottom, rgb(118, 192, 0) 23%, rgb(190, 232, 23) 73%);
-    background-image: -webkit-linear-gradient(bottom, rgb(118, 192, 0) 23%, rgb(190, 232, 23) 73%);
-    background-image: -ms-linear-gradient(bottom, rgb(118, 192, 0) 23%, rgb(190, 232, 23) 73%);
-
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.23, rgb(118, 192, 0)), color-stop(0.73, rgb(190, 232, 23)));
 }
 
 #live_title {

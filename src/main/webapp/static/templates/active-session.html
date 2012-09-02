@@ -6,11 +6,11 @@
              style="display: inline-block; background-image: url('http://wixstreamingapp.appspot.com/static/images/40x40_icon.png'); background-position: center; background-repeat: no-repeat;"></div>
     </div>
     <div data-bind="if: videoController">
-        <div id="subscribers" class="subscribers"></div>
-        <div id="myCamera" class="myCamera"></div>
+        <div id="subscribers" class="subscribers green-background"></div>
+        <div id="myCamera" class="myCamera green-background"></div>
     </div>
     <div data-bind="if: videoController">
         <div data-bind="text: elapsedSessionTime" class="clock inline"></div>
-        <div data-bind="click: videoController().disconnect" class="action-button inline">Leave</div>
+        <div data-bind="click: endActiveSession" class="action-button inline">Leave</div>
     </div>
 </div>

@@ -20,7 +20,7 @@ var viewModel;
         var activeSession = null;
 
         clockViewModel.call(this);
-
+        self.widgetModel = window.widgetModel;
         self.userId = ko.observable('User' + (new Date).getTime().toString(36));
         self.pending = ko.observable({sessions:ko.observableArray([])});
         self.sessions = ko.computed(function () {
@@ -85,7 +85,8 @@ var viewModel;
                 );
                 self.activeSession(null);
             }
-            self.stopTimer();
+            self.endTimer();
+            self.videoController() && self.videoController().disconnect();
             self.videoController(null);
         }
     };
