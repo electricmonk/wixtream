@@ -66,9 +66,7 @@ ul {
     overflow: hidden;
     display: inline-block;
     position: relative;
-    top: 0;
-    left: 0;
-    margin: 0 0 0 -10px;
+    margin: 0 ;
     padding: 0;
 }
 
@@ -101,6 +99,10 @@ ul {
     text-align: center;
 }
 
+.publisher-view>div.active-session {
+    margin: 0 0 0 -10px;
+}
+
 .publisher-view>div {
     vertical-align: top;
 }
@@ -129,16 +131,47 @@ ul {
 }
 
 .request-action {
-    background-color: #00B7FF;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -o-border-radius: 5px;
-    border-radius: 5px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
     position: absolute;
-    left: 100px;
-    right: 100px;
-    top: 50px;
+    top: 0;
+    left: 0;
 }
+
+.request-action:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+    width: 5px;
+}
+.request-action:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+}
+
+.centered {
+    color: #eee;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    border-radius: 10px;
+
+    display: inline-block;
+    vertical-align: middle;
+    width: 300px;
+    padding: 10px 15px;
+    border: #e5e5e5 solid 5px;
+    background: #05a1b7;
+}
+
+​
+
 
 .action-button {
 
