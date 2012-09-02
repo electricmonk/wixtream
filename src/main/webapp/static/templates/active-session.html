@@ -1,7 +1,7 @@
 <div align="center">
     <div data-bind="ifnot: videoController">
         <div class="subscribers"
-             style="display: inline-block; background-image: url('/static/images/screen1.jpg')"></div>
+             style="display: inline-block; background-image: url('http://wixstreamingapp.appspot.com/static/images/screen1.jpg')"></div>
         <div class="myCamera" class="publisherContainer"
              style="display: inline-block; background-image: url('http://wixstreamingapp.appspot.com/static/images/40x40_icon.png'); background-position: center; background-repeat: no-repeat;"></div>
     </div>
@@ -9,8 +9,10 @@
         <div id="subscribers" class="subscribers green-background"></div>
         <div id="myCamera" class="myCamera green-background"></div>
     </div>
-    <div data-bind="if: videoController">
+    <div>
         <div data-bind="text: elapsedSessionTime" class="clock inline"></div>
-        <div data-bind="click: endActiveSession" class="action-button inline">Leave</div>
+        <div data-bind="click: endActiveSession, css: {hidden: !videoController(), 'action-button': videoController()}">
+            Leave
+        </div>
     </div>
 </div>

@@ -68,6 +68,7 @@ ul {
     position: relative;
     margin: 0;
     padding: 0;
+    margin-top: 20px;
 }
 
 .subscribers {
@@ -90,8 +91,7 @@ ul {
 .subscriber-view {
     width: 530px;
     position: relative;
-    margin-top: 14px;
-    background: #f8f8f8 url('http://wixstreamingapp.appspot.com/static/images/bg.jpg') repeat top left;
+    background: #f8f8f8 url('/static/images/bg.jpg') repeat top left;
 }
 
 .publisher-view {
@@ -99,7 +99,7 @@ ul {
     width: 840px;
     padding: 30px;
     text-align: center;
-    background: #f8f8f8 url('http://wixstreamingapp.appspot.com/static/images/bg.jpg') repeat top left;
+    background: #f8f8f8 url('/static/images/bg.jpg') repeat top left;
 }
 
 .publisher-view>div.active-session {
@@ -206,9 +206,12 @@ ul {
 
 }
 
+.hidden {
+    display: none;
+}
+
 .passive-message {
     position: absolute;
-    background: #ffffff;
     color: #000000;
     top:0px;
 }
