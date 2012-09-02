@@ -220,3 +220,22 @@ ul {
 
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.23, rgb(118, 192, 0)), color-stop(0.73, rgb(190, 232, 23)));
 }
+
+
+.paid-request:before {
+    content: '$ ';
+    color: green;
+    font: 1.5em bold;
+    display: inline;
+}
+
+.unpaid-request:before {
+    content: '! ';
+    color: red;
+    font: 1.5em bold;
+    display: inline;
+}
+
+.unpaid-request {
+    color: #c00;
+}

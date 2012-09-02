@@ -4,6 +4,6 @@
         Click to activate
     </div>
     <ul data-bind="foreach: sessions">
-        <li data-bind="text: clientId, click: $root.acceptSubscriber, css: { activeSession: $root.isActive($data) }" class="subscriber"></li>
+        <li data-bind="text: clientId, click: $root.acceptSubscriber, css: { activeSession: $root.isActive($data), 'paid-request': paid(), 'unpaid-request': !paid()  }" class="subscriber"></li>
     </ul>
 </div>
