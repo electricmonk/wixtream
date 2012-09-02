@@ -101,17 +101,7 @@ body {
     font-size: 15px;
     line-height: 1.6;
     padding: 0px;
-    /* Page width */
-
     width: 100%;
-    /* Background image and color */
-
-    background-color: #ededed;
-    background-image: url(images/bg.png);
-    background-repeat: repeat;
-    background-attachment: fixed;
-    /* Fallback background image */
-
 }
 
 /**
@@ -337,15 +327,6 @@ h3 {
 }
 
 #main_box {
-    background: #ffffff;
-    background-image: linear-gradient(bottom, rgb(255, 255, 255) 53%, rgb(250, 248, 250) 17%);
-    background-image: -o-linear-gradient(bottom, rgb(255, 255, 255) 53%, rgb(250, 248, 250) 17%);
-    background-image: -moz-linear-gradient(bottom, rgb(255, 255, 255) 53%, rgb(250, 248, 250) 17%);
-    background-image: -webkit-linear-gradient(bottom, rgb(255, 255, 255) 53%, rgb(250, 248, 250) 17%);
-    background-image: -ms-linear-gradient(bottom, rgb(255, 255, 255) 53%, rgb(250, 248, 250) 17%);
-
-    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.53, rgb(255, 255, 255)), color-stop(0.17, rgb(250, 248, 250)));
-
     padding: 10px 25px 25px 25px;
     overflow: hidden;
     vertical-align: top;
