@@ -68,7 +68,6 @@ ul {
     position: relative;
     margin: 0;
     padding: 0;
-    margin-left: 150px;
 }
 
 .subscribers {
@@ -89,8 +88,9 @@ ul {
 }
 
 .subscriber-view {
-    width: 840px;
+    width: 530px;
     position: relative;
+    margin-top: 14px;
 }
 
 .publisher-view {
@@ -208,6 +208,7 @@ ul {
     position: absolute;
     background: #ffffff;
     color: #000000;
+    top:0px;
 }
 
 .green-background {
