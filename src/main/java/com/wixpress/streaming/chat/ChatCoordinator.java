@@ -24,12 +24,12 @@ public class ChatCoordinator {
         this.openTokFacade = openTokFacade;
     }
 
-    public void createSession(UUID instanceId, String clientId) throws ChatCoordinationException {
+    public void createSession(UUID instanceId, String clientId, boolean paid) throws ChatCoordinationException {
         TenantSessionHolder tenant = getTenant(instanceId);
         if (tenant.getSessions().containsKey(clientId)) {
             throw new ChatCoordinationException("Client with id " + clientId + " already has a pending session");
         } else {
-            tenant.getSessions().put(clientId, new ChatSession(clientId, new DateTime()));
+            tenant.getSessions().put(clientId, new ChatSession(clientId, new DateTime(), paid));
         }
     }
 
