@@ -101,17 +101,7 @@ body {
     font-size: 15px;
     line-height: 1.6;
     padding: 0px;
-    /* Page width */
-
     width: 100%;
-    /* Background image and color */
-
-    background-color: #ededed;
-    background-image: url(images/bg.png);
-    background-repeat: repeat;
-    background-attachment: fixed;
-    /* Fallback background image */
-
 }
 
 /**
