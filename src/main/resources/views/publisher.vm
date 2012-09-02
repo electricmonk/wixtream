@@ -1,4 +1,4 @@
-<div class="shadow round publisher-view">
+<div class="shadow round publisher-view" style="height: 390px">
     <div data-bind="template: 'active-session'" class="active-session"></div>
     <div data-bind="template: 'subscriber'" class="subscribers-list"></div>
     <div data-bind="if: videoController"></div>

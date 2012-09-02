@@ -1,5 +1,5 @@
-<div id="main_box" class="shadow round subscriber-view block">
-    <div data-bind="template: 'active-session'" class="active-session"></div>
+<div id="main_box" class="shadow round subscriber-view block" style="height: 390px">
+    <div data-bind="template: 'active-session'" class="active-session" style="margin-top: 20px"></div>
     <div id="status" data-bind="template: status, css: {'request-action': status() != 'connected', 'passive-message': status() == 'connected'}"></div>
 </div>
 
