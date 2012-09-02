@@ -1,24 +1,26 @@
 <div class="centered">
-    <div style="vertical-align: middle; margin-bottom: 2em">
-        <h1 data-bind="text:widgetModel.appInstance.settings.displayName"></h1>
 
-        <h2 data-bind="text:widgetModel.appInstance.settings.description"></h2>
+    <span style="height: 14px; font-size: 22px">Video Chat with</span>
+    <span data-bind="text:widgetModel.appInstance.settings.displayName" style="height: 14px; font-size: 22px"></span>
+
+    <div data-bind="text:widgetModel.appInstance.settings.description" style="height: 35px; font-size: 18px "></div>
+
+    <form action="/api/v1/pay/prepare-payment" method="post" data-bind="expressCheckout: BuyStart">
+        <input type="hidden" name="instance" data-bind="value:widgetModel.instanceToken"/>
+        <label for="clientId">Enter your name:</label>
+        <input type="text" name="clientId" id="clientId" data-bind="value: userId"/>
+        <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_dg_pay_w_paypal.gif" id="BuyStart" style="margin:auto; margin-top: 10px; margin-bottom: 0px; display: block"/>
+
+        <div class="inline" data-bind="click: requestChat" style="font-size: 12px; color:blue; margin-bottom: 8px;">Request a Free Chat</div>
+    </form>
+
+    <div style="vertical-align: middle;">
         <span>Pricing: </span>
         <span data-bind="text:widgetModel.appInstance.settings.pricePerSessionInUSD"></span>
         <span>$ for a </span>
         <span data-bind="text:widgetModel.appInstance.settings.sessionLength"></span>
         <span> session</span>
     </div>
-
-    <form action="/api/v1/pay/prepare-payment" method="post" data-bind="expressCheckout: BuyStart">
-        <input type="hidden" name="instance" data-bind="value:widgetModel.instanceToken"/>
-        <label for="clientId">Enter your name:</label>
-        <input type="text" name="clientId" id="clientId" data-bind="value: userId"/>
-        <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_dg_pay_w_paypal.gif" id="BuyStart"/>
-        <span style="vertical-align: top;">or</span>
-
-        <div class="inline" data-bind="click: requestChat">Request a Free Chat</div>
-    </form>
 
 
 </div>
